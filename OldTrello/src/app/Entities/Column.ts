@@ -1,16 +1,16 @@
-import { Card } from "./Card";
+import { Task } from "./Task";
 
  export class Column{
 
-  id: number | null;
-  name: string;
+  id: number;
+  columnName: string;
   boardId: number;
   position: number;
-  cards: Card[];
+  cards: Task[];
 
   constructor(){
-    this.id = null;
-    this.name = "";
+    this.id = 0;
+    this.columnName = "";
     this.boardId = 0;
     this.position = 0;
     this.cards = [];

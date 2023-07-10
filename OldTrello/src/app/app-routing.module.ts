@@ -6,7 +6,7 @@ import { BoardPageComponent } from './components/board-page/board-page.component
 const routes: Routes = [
   {path: 'home' , component: HomePageComponent},
   {path: '', redirectTo: 'home', pathMatch: "full"},
-  {path: 'board' , component: BoardPageComponent},
+  {path: 'board/:id' , component: BoardPageComponent},
 ];
 
 @NgModule({

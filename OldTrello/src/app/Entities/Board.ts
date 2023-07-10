@@ -1,18 +1,18 @@
  export class Board{
 
-  id: number | null = 0;
-  name: string = "";
-  description: string = "";
-  user: string = "";
-  privacy: string = "" ;
+  id: number;
+  boardName: string;
+  boardDescription: string;
+  user: string;
+  isPrivate: boolean;
 
 
   constructor(){
-    this.id = null;
-    this.name = "";
-    this.description = "";
+    this.id = 0;
+    this.boardName = "";
+    this.boardDescription = "";
     this.user = "userOwner";
-    this.privacy = "public";
+    this.isPrivate = false;
 
   }
 

@@ -71,7 +71,7 @@ public class Initializer {
         //Columns
         columnRepository.save(new Column(
                 1L,
-                "ToDo",
+                "ToDo      ",
                 boardRepository.findById(1L).get(),
                 1L));
 
@@ -86,6 +86,20 @@ public class Initializer {
                 "Completed",
                 boardRepository.findById(1L).get(),
                 3L));
+
+        columnRepository.save(new Column(
+                4L,
+                "Column2",
+                boardRepository.findById(2L).get(),
+                3L));
+
+        columnRepository.save(new Column(
+                5L,
+                "Another Column",
+                boardRepository.findById(2L).get(),
+                3L));
+
+
 
         taskRepository.save(new Task(
                 1L,

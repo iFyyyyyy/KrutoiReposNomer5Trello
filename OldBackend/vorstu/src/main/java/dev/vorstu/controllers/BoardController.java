@@ -26,7 +26,6 @@ public class BoardController {
 
     @GetMapping("/boards")
     public List<Board> getAllBoards() {
-        log.info("Sending boards");
         return boardService.getAll();
     }
 

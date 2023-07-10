@@ -12,6 +12,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { BoardServiceService } from 'src/app/service/board-service.service';
 
 @Component({
   selector: 'app-home-page',
@@ -23,24 +24,28 @@ export class HomePageComponent {
   board: Board = new Board;
   boards: Board[];
 
-  constructor(private router: Router){
+  constructor(private router: Router, private boardService: BoardServiceService){
     this.boards = [];
   }
 
-      Testboards = [
-      {id: 0, name: "BoardName1", description: "BoardDescription1", user: "user1", privacy: "public"},
-      {id: 1, name: "BoardName2", description: "BoardDescription2", user: "user2", privacy: "public"},
-      {id: 2, name: "BoardName3", description: "BoardDescription3", user: "user3", privacy: "public"},
-      {id: 3, name: "BoardName4", description: "BoardDescription4", user: "user4", privacy: "public"},
-      // {id: 4, name: "BoardName5", description: "BoardDescription5", user: "user5", privacy: "public"},
-      // {id: 5, name: "BoardName6", description: "BoardDescription6", user: "user6", privacy: "public"},
-      // {id: 5, name: "BoardName7", description: "BoardDescription6", user: "user6", privacy: "public"},
-      // {id: 5, name: "BoardName8", description: "BoardDescription6", user: "user6", privacy: "public"},
-      // {id: 5, name: "BoardName9", description: "BoardDescription6", user: "user6", privacy: "public"},
-      // {id: 5, name: "BoardName10", description: "BoardDescription6", user: "user6", privacy: "public"},
-      // {id: 5, name: "BoardName11", description: "BoardDescription6", user: "user6", privacy: "public"},
-      // {id: 5, name: "BoardName12", description: "BoardDescription6", user: "user6", privacy: "public"},
-    ];
+    //   Testboards = [
+    //   {id: 0, name: "BoardName1", description: "BoardDescription1", user: "user1", isPrivate: "public"},
+    //   {id: 1, name: "BoardName2", description: "BoardDescription2", user: "user2", isPrivate: "public"},
+    //   {id: 2, name: "BoardName3", description: "BoardDescription3", user: "user3", isPrivate: "public"},
+    //   {id: 3, name: "BoardName4", description: "BoardDescription4", user: "user4", isPrivate: "public"},
+    // ];
+
+    ngOnInit(){
+      this.boardService.getAllBoards().subscribe((result: Board[]) => {
+        console.log(result);
+        this.boards = result;
+
+      })
+    }
+
+
+
+
 
     newFunction(id: number){
       this.router.navigate(["board"]);

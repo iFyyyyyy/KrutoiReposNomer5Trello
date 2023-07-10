@@ -12,6 +12,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { NbListModule } from '@nebular/theme';
 import {MatCardModule} from '@angular/material/card';
 
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,10 @@ import {MatCardModule} from '@angular/material/card';
     DragDropModule,
     NbListModule,
     MatCardModule,
+
+    HttpClientModule,
+    BrowserAnimationsModule,
+
 
 
   ],

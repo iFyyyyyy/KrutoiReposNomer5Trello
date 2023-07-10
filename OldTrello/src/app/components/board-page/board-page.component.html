@@ -5,23 +5,23 @@
       <nb-card size="small" #Column
       (mouseenter)="onMouseEnter(Column)"
       (mouseleave)="onMouseOut(Column)" >
-        <nb-card-header>{{column.name}} </nb-card-header>
-        <nb-card-body cdkDropList [cdkDropListData]="column.cards"
+        <nb-card-header>{{column.columnName}} </nb-card-header>
+        <nb-card-body cdkDropList [cdkDropListData]="cards"
           (cdkDropListDropped)="drop($event)"
           >
-          <div class="example-box"  *ngFor="let task of column.cards" cdkDrag>
+          <div class="example-box"  *ngFor="let task of cards" cdkDrag>
             <nb-card  size="tiny" #Card
             (mouseenter)="onMouseEnter(Card)"
             (mouseleave)="onMouseOut(Card)" >
               <nb-card-header>
-                {{task.name}}
+                {{task.taskName}}
 
                 <button nbButton hero status="info">
                   <nb-icon icon="edit-2-outline">
                   </nb-icon>
                 </button>
               </nb-card-header>
-              <nb-card-body class="card-body">{{task.description}}</nb-card-body>
+              <nb-card-body class="card-body">{{task.taskDescription}}</nb-card-body>
             </nb-card>
           </div>
           <!-- {{column.position}} -->
