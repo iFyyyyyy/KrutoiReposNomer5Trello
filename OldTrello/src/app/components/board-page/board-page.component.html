@@ -1,0 +1,32 @@
+<div cdkDropList [cdkDropListData]="columns" cdkDropListOrientation="horizontal" class="example-page"
+(cdkDropListDropped)="drop($event)">
+<div class="column-row" cdkDropListGroup>
+    <div class="column-col"  *ngFor="let column of columns" cdkDrag >
+      <nb-card size="small" #Column
+      (mouseenter)="onMouseEnter(Column)"
+      (mouseleave)="onMouseOut(Column)" >
+        <nb-card-header>{{column.name}} </nb-card-header>
+        <nb-card-body cdkDropList [cdkDropListData]="column.cards"
+          (cdkDropListDropped)="drop($event)"
+          >
+          <div class="example-box"  *ngFor="let task of column.cards" cdkDrag>
+            <nb-card  size="tiny" #Card
+            (mouseenter)="onMouseEnter(Card)"
+            (mouseleave)="onMouseOut(Card)" >
+              <nb-card-header>
+                {{task.name}}
+
+                <button nbButton hero status="info">
+                  <nb-icon icon="edit-2-outline">
+                  </nb-icon>
+                </button>
+              </nb-card-header>
+              <nb-card-body class="card-body">{{task.description}}</nb-card-body>
+            </nb-card>
+          </div>
+          <!-- {{column.position}} -->
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+    <nb-layout >
+      <nb-layout-header>
+
+        <span>trelloLogo</span>
+        <span class="toolbar-item-spacer"></span>
+        <nb-user id="user" size="large"
+        name="Some Username"
+        badgePosition="bottom right">
+      </nb-user>
+
+      </nb-layout-header>
+
+
+      <nb-sidebar #sidebar mode="side" state="compacted"
+      (mouseenter)="onMouseEnter(sidebar)"
+      (mouseleave)="onMouseOut(sidebar)">
+
+
+      <nb-menu [items]="items"> </nb-menu>
+
+
+      </nb-sidebar>
+
+
+
+
+      <nb-layout-column class="colored-column-success">
+        <router-outlet></router-outlet>
+      </nb-layout-column>
+    </nb-layout>
+

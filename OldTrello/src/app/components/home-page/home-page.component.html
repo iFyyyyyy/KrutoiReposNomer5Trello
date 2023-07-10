@@ -1,0 +1,34 @@
+
+<div class="card-row">
+
+
+<div   cdkDropList [cdkDropListData]="Testboards" cdkDropListOrientation="horizontal"
+(cdkDropListDropped)="drop($event)">
+  <div class="card-col"  *ngFor="let board of Testboards" cdkDrag>
+
+    <nb-card #Board size="tiny"
+    (mouseenter)="onMouseEnter(Board)"
+    (mouseleave)="onMouseOut(Board)"
+    (click)="this.newFunction(board.id)" >
+      <nb-card-header >{{board.name}} </nb-card-header>
+      <nb-card-body>
+        {{board.description}}
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<div class="card-col">
+  <nb-card size="tiny" #addBoard
+      (mouseenter)="onMouseEnter(addBoard)"
+      (mouseleave)="onMouseOut(addBoard)">
+    <nb-card-header> New Board</nb-card-header>
+    <nb-card-body>
+      <nb-icon class="card-add-icon" icon="plus-square-outline"></nb-icon>
+    </nb-card-body>
+  </nb-card>
+</div>
+  </div>
+
+

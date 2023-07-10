@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  max-height: 25rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.card-row::-webkit-scrollbar {
+  display: flex;
+  height: 4px;
+  width: 4px;
+  background: gray;
+  scrollbar-width: auto;
+  margin: 0 -0.5rem;
+}
+
+.card-col {
+   flex: 1 0 calc(50% - 1rem);
+  display: inline-flex;
+  margin: 0 0.5rem;
+  max-width: 250px;
+  text-align: center;
+}
+
+.card-add {
+  flex: 1 0 calc(50% - 1rem);
+
+  display: inline-flex;
+  margin: 0 0.5rem;
+  max-width: 250px;
+  text-align: center;
+}
+
+.card-add-icon {
+  font-size: 100px;
+  margin-top: 10px;
+}
