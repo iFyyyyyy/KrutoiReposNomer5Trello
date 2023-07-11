@@ -26,29 +26,10 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public List<Task> getTasks(Long boardId) {
+    public List<Task> getTasks(Long columnId) {
 
-        Board board = boardRepository.findById(boardId).get();
+        List<Task> list = taskRepository.getTasksByBoardId(columnId);
 
-        List<Column> list = columnRepository.findAllByOrderByIdAsc();
-        List<Task> TaskList = (List<Task>) taskRepository.findAll();
-        List<Task> newList = new ArrayList<>();
-
-        for (Column column: list) {
-            if (column.getBoard() == board){
-                for (Task task: TaskList
-                     ) {
-                    if(task.getColumn() == column){
-                        newList.add(task);
-                    }
-
-                }
-
-            }
-        }
-
-//        Column column = columnRepository.findById(1L).get();
-//        log.info("Sending {} columns", board.getBoardName() );
-        return newList;
+        return  list;
     }
 }

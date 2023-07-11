@@ -21,10 +21,10 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/tasks")
-    public List<Task> getColumns(@RequestBody long id) {
-        // long boardId = 1L;
-        return taskService.getTasks(id);
+    @PostMapping("/tasks/{id}")
+    public List<Task> getTasks(@RequestBody long columnId) {
+
+        return taskService.getTasks(columnId);
 
     }
 

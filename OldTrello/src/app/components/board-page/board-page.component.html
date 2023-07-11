@@ -6,10 +6,10 @@
       (mouseenter)="onMouseEnter(Column)"
       (mouseleave)="onMouseOut(Column)" >
         <nb-card-header>{{column.columnName}} </nb-card-header>
-        <nb-card-body cdkDropList [cdkDropListData]="cards"
+        <nb-card-body cdkDropList [cdkDropListData]="column.tasks"
           (cdkDropListDropped)="drop($event)"
           >
-          <div class="example-box"  *ngFor="let task of cards" cdkDrag>
+          <div class="example-box"  *ngFor="let task of column.tasks" cdkDrag>
             <nb-card  size="tiny" #Card
             (mouseenter)="onMouseEnter(Card)"
             (mouseleave)="onMouseOut(Card)" >

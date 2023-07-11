@@ -1,6 +1,7 @@
 package dev.vorstu.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Board {
     private String boardDescription;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 

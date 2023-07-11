@@ -31,26 +31,13 @@ export class BoardPageComponent {
   // todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep', 'SUCK VERY BIG PENIS'];
   // done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   columns: Column[];
-  cards: Task[];
+  tasks: Task[];
 
   constructor(private route: ActivatedRoute, private columnService: ColumnServiceService,
     private taskService: TaskServiceService){
     this.columns = [];
-    this.cards = [];
-    // this.cards = [
-    //   {id: 0, name: "Card1", description: "DescCard1 ToDo", columnId: 0, lastUpdated: new Date() },
-    //   {id: 1, name: "Card2", description: "DescCard1 ToDo", columnId: 0, lastUpdated: new Date() },
-    //   {id: 2, name: "Card3", description: "DescCard2 InProgress", columnId: 1, lastUpdated: new Date() },
-    //   {id: 3, name: "Card4", description: "DescCard3 Completed" , columnId: 2, lastUpdated: new Date() },
-    // ]
+    this.tasks = [];
 
-    // this.columns = [
-    //   {id: 0, name: "ToDo", boardId: 0, position: 0, cards: this.getCards(this.cards, 0)},
-    //   {id: 1, name: "InProgress", boardId: 0, position: 1, cards: this.getCards(this.cards, 1)},
-    //   {id: 2, name: "Completed", boardId: 0, position: 2, cards: this.getCards(this.cards, 2)},
-    //   {id: 3, name: "ColumnName4", boardId: 0, position: 3, cards: this.getCards(this.cards, 3)},
-
-    // ];
   }
 
   cardOptions: NbMenuItem[] = [
@@ -70,17 +57,6 @@ export class BoardPageComponent {
   //   return result;
   // }
 
-  getCards(arr: Task[], id: number) {
-
-    let result = [];
-    for (var i=0, iLen=arr.length; i<iLen; i++) {
-      if (arr[i].columnId == id)
-      result.push(arr[i]);
-    }
-    console.log("get cards array: " + result);
-    return result;
-
-  }
 
 
   ngOnInit() {
@@ -102,24 +78,24 @@ export class BoardPageComponent {
 
   getColumnsByBoardId(id: number){
     this.columnService.getColumnsByBoardId(id).subscribe((result: Column[]) => {
-      console.log(result);
 
-      result.forEach((column: Column) => {
-        column.cards = this.getCards(this.getTasksByBoardId(id), column.id);
+      result.forEach(element => {
+        element.tasks = this.getTasksByBoardId(element.id);
 
       });
+
       this.columns = result;
-
-
   })
   }
 
+
   getTasksByBoardId(id: number){
-    let cards: Task[] = [];
+    let tasks: Task[] = [];
     this.taskService.getTasksByBoardId(id).subscribe((result: Task[]) => {
-      this.cards = result;
+      tasks = result;
+      console.log(result);
   })
-  return this.cards;
+    return tasks;
   }
 
 

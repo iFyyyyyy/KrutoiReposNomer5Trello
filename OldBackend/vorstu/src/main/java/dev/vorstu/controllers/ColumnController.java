@@ -22,7 +22,7 @@ public class ColumnController {
     @PostMapping("/columns")
     public List<Column> getColumns(@RequestBody long id) {
        // long boardId = 1L;
-        return columnService.getColumsByBoardId(id);
+        return columnService.getColumnsByBoardId(id);
 
     }
 

@@ -1,6 +1,7 @@
 package dev.vorstu.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "columns")
+//@NamedQuery(query = "Select e from columns c where c.board_id = :id", name = "find column by boardId")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,8 +26,11 @@ public class Column {
     private String columnName;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="board_id", nullable=false)
     private Board board;
+
+
 
     private Long columnPosition;
 }
