@@ -10,14 +10,14 @@ import { Task } from '../Entities/Task';
 })
 export class TaskServiceService {
 
-  private studentsUrl = '/api/tasks';
+  private tasksUrl = '/api/tasks';
 
 
   constructor(
     private http: HttpClient) { }
 
     getTasksByBoardId(id: number): Observable<Task[]> {
-      return this.http.post<Task[]>(`${this.studentsUrl}`, id).pipe();
+      return this.http.get<Task[]>(`${this.tasksUrl}/${id}`).pipe();
     }
 
 }

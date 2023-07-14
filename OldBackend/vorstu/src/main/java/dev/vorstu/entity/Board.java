@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.Column;
 
-@Entity
+@Entity(name = "board")
 @Table(name = "boards")
 @Getter
 @Setter
@@ -26,10 +27,14 @@ public class Board {
 
     private String boardDescription;
 
+    @Column(unique=true)
+    private Long boardPosition;
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name="user_id", nullable=false)
     private User user;
+
 
     private boolean IsPublic;
 }

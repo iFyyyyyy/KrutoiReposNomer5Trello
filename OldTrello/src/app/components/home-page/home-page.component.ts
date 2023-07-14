@@ -24,6 +24,10 @@ export class HomePageComponent {
   board: Board = new Board;
   boards: Board[];
 
+
+  // USER ID
+  id: number = 1;
+
   constructor(private router: Router, private boardService: BoardServiceService){
     this.boards = [];
   }
@@ -36,7 +40,7 @@ export class HomePageComponent {
     // ];
 
     ngOnInit(){
-      this.boardService.getAllBoards().subscribe((result: Board[]) => {
+      this.boardService.getAllBoards(this.id).subscribe((result: Board[]) => {
         console.log(result);
         this.boards = result;
 

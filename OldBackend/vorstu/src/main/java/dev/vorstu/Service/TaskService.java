@@ -26,7 +26,7 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public List<Task> getTasks(Long columnId) {
+    public List<Task> getTasksByBoardId(Long columnId) {
 
         List<Task> list = taskRepository.getTasksByBoardId(columnId);
 

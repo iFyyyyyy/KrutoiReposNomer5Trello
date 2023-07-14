@@ -8,14 +8,15 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class ColumnServiceService {
 
-  private studentsUrl = '/api/columns';
+  private columnsUrl = '/api/columns';
 
 
   constructor(
     private http: HttpClient) { }
 
     getColumnsByBoardId(id: number): Observable<Column[]> {
-      return this.http.post<Column[]>(`${this.studentsUrl}`, id).pipe();
+      return this.http.get<Column[]>(`${this.columnsUrl}/${id}`).pipe();
     }
+
 
 }

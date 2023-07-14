@@ -48,21 +48,23 @@ export class BoardPageComponent {
     },
   ];
 
-  // getCards(arr: Task[], id: number) {
-  //   let result = [];
-  //   for (var i=0, iLen=arr.length; i<iLen; i++) {
-  //     if (arr[i].columnId == id)
-  //     result.push(arr[i]);
-  //   }
-  //   return result;
-  // }
+  tasksToColumns(arr: Task[], id: number) {
+    let result = [];
+    for (var i=0, iLen=arr.length; i<iLen; i++) {
+      if (arr[i].columnId == id)
+      result.push(arr[i]);
+    }
+    return result;
+  }
 
 
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        this.id = +params['id']; // (+) converts string 'id' to a number
+
        this.getColumnsByBoardId(this.id);
+       //this.getTasksByBoardId(this.id);
 
 
 
@@ -77,27 +79,34 @@ export class BoardPageComponent {
 
 
   getColumnsByBoardId(id: number){
-    this.columnService.getColumnsByBoardId(id).subscribe((result: Column[]) => {
+    this.columnService.getColumnsByBoardId(id).subscribe((columns: Column[]) => {
 
-      result.forEach(element => {
-        element.tasks = this.getTasksByBoardId(element.id);
+      console.log(columns);
+      //this.columns = columns;
+      this.columns = columns;
 
-      });
-
-      this.columns = result;
   })
   }
+
+
+  // getTasksByBoardId(id: number){
+  //   let tasks: Task[] = [];
+  //   this.taskService.getTasksByBoardId(id).subscribe((tasks: Task[]) => {
+
+  //     this.tasks = tasks;
+
+  // })
+  // }
 
 
   getTasksByBoardId(id: number){
-    let tasks: Task[] = [];
-    this.taskService.getTasksByBoardId(id).subscribe((result: Task[]) => {
-      tasks = result;
-      console.log(result);
-  })
-    return tasks;
-  }
+    this.taskService.getTasksByBoardId(id).subscribe((tasks: Task[]) => {
 
+      this.tasks = tasks;
+
+  })
+
+  }
 
 
 

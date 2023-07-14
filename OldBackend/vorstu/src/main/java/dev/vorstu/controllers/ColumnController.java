@@ -4,6 +4,7 @@ package dev.vorstu.controllers;
 import dev.vorstu.Service.ColumnService;
 
 import dev.vorstu.entity.Column;
+import dev.vorstu.entity.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,8 +20,8 @@ public class ColumnController {
     @Autowired
     private ColumnService columnService;
 
-    @PostMapping("/columns")
-    public List<Column> getColumns(@RequestBody long id) {
+    @GetMapping("/columns/{id}")
+    public List<Column> getTasks(@PathVariable("id") Long id) {
        // long boardId = 1L;
         return columnService.getColumnsByBoardId(id);
 

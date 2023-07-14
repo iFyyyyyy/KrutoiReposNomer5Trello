@@ -44,6 +44,7 @@ public class Initializer {
                 1L,
                 "Board1",
                 "Board1Desc1",
+                1L,
                 userRepository.findById(1L).get(),
                 true));
 
@@ -51,53 +52,62 @@ public class Initializer {
                 2L,
                 "Board2",
                 "Board2Desc2",
+                2L,
                 userRepository.findById(1L).get(),
                 true));
-//
-//        boardRepository.save(new Board(
-//                3L,
-//                "Board3",
-//                "Board3Desc3",
-//                userRepository.findById(1L).get(),
-//                true));
-//
-//        boardRepository.save(new Board(
-//                4L,
-//                "Board4",
-//                "Board4Desc4",
-//                userRepository.findById(1L).get(),
-//                true));
+
+        boardRepository.save(new Board(
+                3L,
+                "Board3",
+                "Board3Desc3",
+                3L,
+                userRepository.findById(1L).get(),
+                true));
+
+        boardRepository.save(new Board(
+                4L,
+                "Board4",
+                "Board4Desc4",
+                4L,
+                userRepository.findById(1L).get(),
+                true));
 
         //Columns
         columnRepository.save(new Column(
                 1L,
-                "ToDo      ",
+                "    ToDo    ",
                 boardRepository.findById(1L).get(),
+                null,
                 1L));
 
         columnRepository.save(new Column(
                 2L,
                 "InProgress",
                 boardRepository.findById(1L).get(),
-                2L));
+                null,
+                2L
+                ));
 
         columnRepository.save(new Column(
                 3L,
                 "Completed",
                 boardRepository.findById(1L).get(),
+                null,
                 3L));
 
         columnRepository.save(new Column(
                 4L,
                 "Column2",
                 boardRepository.findById(2L).get(),
-                3L));
+                null,
+                4L));
 
         columnRepository.save(new Column(
                 5L,
                 "Another Column",
                 boardRepository.findById(2L).get(),
-                3L));
+                null,
+                5L));
 
 
 

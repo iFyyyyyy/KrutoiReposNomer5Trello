@@ -21,12 +21,28 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/tasks/{id}")
-    public List<Task> getTasks(@RequestBody long columnId) {
+    @GetMapping("/tasks/{id}")
+    public List<Task> getTasks(@PathVariable("id") Long id) {
 
-        return taskService.getTasks(columnId);
-
+        return taskService.getTasksByBoardId(id);
     }
+
+//    @PostMapping("/students")
+//    public Student createStudent(@RequestBody Student editingStudent) {
+//
+//        return studentService.create(editingStudent);
+//    }
+//
+//    @PutMapping("/students/{studentId}")
+//    public Student updateStudent(@PathVariable("studentId") long id, @RequestBody Student updatingStudent) {
+//        return studentService.update(id, updatingStudent);
+//    }
+//
+//    @DeleteMapping("/students/{studentId}")
+//    public void deleteStudent(@PathVariable("studentId") long id) {
+//        studentService.delete(id);
+//    }
+
 
 
 }

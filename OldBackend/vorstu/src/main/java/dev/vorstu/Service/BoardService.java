@@ -22,10 +22,9 @@ public class BoardService {
     @Autowired
     private ColumnRepository columnRepository;
 
-    public List<Board> getAll() {
-        List<Board> list = boardRepository.findAllByOrderByIdAsc();
+    public List<Board> getAll(Long userId) {
+        List<Board> list = boardRepository.getBoardsByUserId(userId);
 
-        log.info("Sending boards");
         return list;
     }
 

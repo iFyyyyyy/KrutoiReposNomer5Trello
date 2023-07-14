@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
-    @Query(value= "select t.id,t.last_updated,t.taskname, t.task_description, t.task_position, t.column_id " +
-            "from tasks t " +
-            "where t.column_id =:columnId",  nativeQuery = true)
-    List<Task> getTasksByBoardId(@Param("columnId")Long columnId);
+    @Query("SELECT t FROM task t WHERE t.column.board.id = :boardId")
+    List<Task> getTasksByBoardId(@Param("boardId") Long boardId);
 }

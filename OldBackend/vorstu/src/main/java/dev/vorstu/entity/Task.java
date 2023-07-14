@@ -1,6 +1,7 @@
 package dev.vorstu.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
+@Entity(name = "task")
 @Table(name = "tasks")
 @Getter
 @Setter
@@ -25,10 +26,12 @@ public class Task {
 
     private String taskDescription;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="column_id", nullable=false)
     private Column column;
 
+    @javax.persistence.Column(unique=true)
     private Long taskPosition;
 
     private Date lastUpdated;

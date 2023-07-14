@@ -8,15 +8,16 @@ import { Board } from '../Entities/Board';
 })
 export class BoardServiceService {
 
-    private studentsUrl = '/api/boards';
+    private boardsUrl = '/api/boards';
 
 
     constructor(
       private http: HttpClient) { }
 
-      getAllBoards(): Observable<Board[]> {
-        return this.http.get<Board[]>(this.studentsUrl);
+      getAllBoards(id: number): Observable<Board[]> {
+        return this.http.get<Board[]>(`${this.boardsUrl}/${id}`).pipe();
       }
+
 
 
     // getAllStudents(): Observable<Student[]> {
