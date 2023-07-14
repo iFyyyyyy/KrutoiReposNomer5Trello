@@ -14,6 +14,8 @@ export class NavigationComponent {
   boards: Board[];
   id: number = 1;
 
+  isLight = true;
+
   constructor(private boardService: BoardServiceService){
     this.boards = [];
   };

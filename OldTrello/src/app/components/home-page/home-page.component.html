@@ -1,35 +1,63 @@
 
-<div class="card-row">
+<div class="board-main-content">
 
 
-<div   cdkDropList [cdkDropListData]="boards" cdkDropListOrientation="horizontal"
-(cdkDropListDropped)="drop($event)">
-  <div class="card-col"  *ngFor="let board of boards" cdkDrag
-  [routerLink]="['/board', board.id]">
+  <div class="menu-header">
+    <span class="menu-content">
+      <div class = "menu-options">
+        <nb-form-field class="menu-options-search">
+          <nb-icon nbPrefix icon="search-outline"></nb-icon>
+          <input status="info" type="text" size="large" nbInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+        </nb-form-field>
 
-    <nb-card #Board size="tiny"
-    (mouseenter)="onMouseEnter(Board)"
-    (mouseleave)="onMouseOut(Board)"
-     >
-      <nb-card-header >{{board.boardName}} </nb-card-header>
+          <button nbButton ghost size="large" status="info" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="click">
+            <nb-icon icon="menu-2-outline"></nb-icon>
+          </button>
+      </div>
+    </span>
+  </div>
+
+
+  <div class="board-canvas">
+    <div id="home-page" class="board-scrollbar" cdkDropList [cdkDropListData]="boards" cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)">
+      <div class="board-wrapper" *ngFor="let board of boards" cdkDrag
+      data-drag-scroll-enabled="true">
+
+            <nb-card class="board-card" #Board size="tiny"
+              (mouseenter)="onMouseEnter(Board)"
+              (mouseleave)="onMouseOut(Board)">
+              <nb-card-header class="board-card-header">
+                <div>
+                  <span class="board-card-boardname" [routerLink]="['/board', board.id]">{{board.boardName}}</span>
+                  <div class="board-card-extras">
+                    <button nbButton ghost status="info" [nbContextMenu]="boardOptions" nbContextMenuTrigger="click">
+                      <nb-icon icon="more-horizontal-outline"></nb-icon>
+                    </button>
+                  </div>
+                </div>
+              </nb-card-header>
+              <div class="board-card-body">
+              <nb-card-body>
+                {{board.boardDescription}}
+              </nb-card-body>
+              </div>
+            </nb-card>
+      </div>
+    </div>
+  </div>
+<!--
+  <div class="board-wrapper">
+    <nb-card size="tiny" #addBoard
+        (mouseenter)="onMouseEnter(addBoard)"
+        (mouseleave)="onMouseOut(addBoard)">
+      <nb-card-header> New Board</nb-card-header>
       <nb-card-body>
-        {{board.boardDescription}}
+        <nb-icon class="card-add-icon" icon="plus-square-outline"></nb-icon>
       </nb-card-body>
     </nb-card>
-  </div>
-</div>
+  </div> -->
 
-
-<div class="card-col">
-  <nb-card size="tiny" #addBoard
-      (mouseenter)="onMouseEnter(addBoard)"
-      (mouseleave)="onMouseOut(addBoard)">
-    <nb-card-header> New Board</nb-card-header>
-    <nb-card-body>
-      <nb-icon class="card-add-icon" icon="plus-square-outline"></nb-icon>
-    </nb-card-body>
-  </nb-card>
 </div>
-  </div>
 
 

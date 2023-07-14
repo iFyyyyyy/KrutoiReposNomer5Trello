@@ -3,6 +3,14 @@
 
         <span>trelloLogo</span>
         <span class="toolbar-item-spacer"></span>
+        <button nbButton ghost size="large" status="info" class="">
+
+          <nb-icon  *ngIf="isLight; else isDark" icon="toggle-left-outline" color="info"></nb-icon>
+          <ng-template #isDark>
+          <nb-icon #isDark icon="toggle-right-outline"></nb-icon>
+          </ng-template>
+
+        </button>
         <nb-user id="user" size="large"
         name="Some Username"
         badgePosition="bottom right">

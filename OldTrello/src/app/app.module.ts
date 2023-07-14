@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbCardModule, NbThemeModule, NbFormFieldModule, NbUserModule, NbLayoutModule, NbIconModule, NbSidebarModule, NbMenuModule, NbActionsModule, NbSidebarService } from '@nebular/theme';
+import { NbCardModule, NbThemeModule, NbContextMenuModule, NbInputModule, NbSearchModule, NbFormFieldModule, NbUserModule, NbLayoutModule, NbIconModule, NbSidebarModule, NbMenuModule, NbActionsModule, NbButtonModule, NbSidebarService } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -38,6 +38,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NbFormFieldModule,
     NbUserModule,
     NbCardModule,
+    NbButtonModule,
+    NbSearchModule,
+    NbInputModule,
+    NbContextMenuModule,
 
     DragDropModule,
     NbListModule,

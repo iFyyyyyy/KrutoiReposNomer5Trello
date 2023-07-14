@@ -72,6 +72,22 @@ public class Initializer {
                 userRepository.findById(1L).get(),
                 true));
 
+        boardRepository.save(new Board(
+                5L,
+                "Board5",
+                "Board5Desc5",
+                5L,
+                userRepository.findById(1L).get(),
+                true));
+
+        boardRepository.save(new Board(
+                6L,
+                "Board6",
+                "Board6Desc6",
+                6L,
+                userRepository.findById(1L).get(),
+                true));
+
         //Columns
         columnRepository.save(new Column(
                 1L,

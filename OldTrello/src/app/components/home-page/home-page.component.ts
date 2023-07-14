@@ -2,7 +2,7 @@ import { style } from '@angular/animations';
 import { AppRoutingModule } from './../../app-routing.module';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbCardComponent } from '@nebular/theme';
+import { NbCardComponent, NbMenuItem } from '@nebular/theme';
 import { Board } from 'src/app/Entities/Board';
 import {
   CdkDragDrop,
@@ -32,6 +32,28 @@ export class HomePageComponent {
     this.boards = [];
   }
 
+  boardOptions: NbMenuItem[] = [
+    {
+      title: 'Edit Board',
+      icon: 'edit-outline',
+    },
+    {
+      title: 'Delete Board',
+      icon: 'trash-2-outline',
+     // link: 'home',
+    },
+  ];
+
+  menuOptions: NbMenuItem[] = [
+    {
+      title: 'Create New Board',
+      icon: 'plus-square-outline',
+    },
+
+  ];
+
+
+
     //   Testboards = [
     //   {id: 0, name: "BoardName1", description: "BoardDescription1", user: "user1", isPrivate: "public"},
     //   {id: 1, name: "BoardName2", description: "BoardDescription2", user: "user2", isPrivate: "public"},
@@ -49,6 +71,12 @@ export class HomePageComponent {
 
 
 
+     applyFilter(event: Event){};
+    // applyFilter(event: Event) {
+    //   const filterValue = (event.target as HTMLInputElement).value;
+    //   this.board.boardName.filter = filterValue.trim().toLowerCase();
+    //   }
+    // }
 
 
     newFunction(id: number){
