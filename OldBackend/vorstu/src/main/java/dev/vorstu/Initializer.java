@@ -145,6 +145,24 @@ public class Initializer {
                 new Date()
         ));
 
+        taskRepository.save(new Task(
+                3L,
+                "Task3",
+                "Task3Column2",
+                columnRepository.findById(2L).get(),
+                1L,
+                new Date()
+        ));
+
+        taskRepository.save(new Task(
+                4L,
+                "Task4",
+                "Task4Column3",
+                columnRepository.findById(3L).get(),
+                2L,
+                new Date()
+        ));
+
 
 
     }

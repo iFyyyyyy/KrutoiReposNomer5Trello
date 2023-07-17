@@ -32,6 +32,8 @@ export class HomePageComponent {
     this.boards = [];
   }
 
+  selectedItem = '';
+
   boardOptions: NbMenuItem[] = [
     {
       title: 'Edit Board',

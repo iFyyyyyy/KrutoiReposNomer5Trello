@@ -28,5 +28,10 @@ public class BoardService {
         return list;
     }
 
+    public Board getBoardById(Long BoardId) {
+         Board board = boardRepository.findById(BoardId).get();
+         return board;
+    }
+
 
 }

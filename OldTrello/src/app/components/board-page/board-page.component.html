@@ -1,32 +1,83 @@
-<div cdkDropList [cdkDropListData]="columns" cdkDropListOrientation="horizontal" class="example-page"
-(cdkDropListDropped)="drop($event)">
-<div class="column-row" cdkDropListGroup>
-    <div class="column-col"  *ngFor="let column of columns" cdkDrag >
-      <nb-card size="small" #Column
-      (mouseenter)="onMouseEnter(Column)"
-      (mouseleave)="onMouseOut(Column)" >
-        <nb-card-header>{{column.columnName}} </nb-card-header>
-        <nb-card-body cdkDropList [cdkDropListData]="column.tasks"
-          (cdkDropListDropped)="drop($event)"
-          >
-          <div class="example-box"  *ngFor="let task of column.tasks" cdkDrag>
-            <nb-card  size="tiny" #Card
-            (mouseenter)="onMouseEnter(Card)"
-            (mouseleave)="onMouseOut(Card)" >
-              <nb-card-header>
-                {{task.taskName}}
+<div class="board-main-content">
 
-                <button nbButton hero status="info">
-                  <nb-icon icon="edit-2-outline">
-                  </nb-icon>
-                </button>
-              </nb-card-header>
-              <nb-card-body class="card-body">{{task.taskDescription}}</nb-card-body>
-            </nb-card>
-          </div>
-          <!-- {{column.position}} -->
+<nb-card class="menu-header">
+  <span class="menu-content">
+    <div class = "menu-options">
+      <span class="menu-board-name">{{board.boardName}}</span>
+      <nb-form-field class="menu-options-search">
+        <nb-icon nbPrefix icon="search-outline"></nb-icon>
+        <input type="text" size="small" nbInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+      </nb-form-field>
+
+      <nb-select class="menu-options-sort" placeholder="Select Showcase" size="small" [(selected)]="selectedItem">
+        <nb-option value="">Sort By...</nb-option>
+        <nb-option value="0">By id</nb-option>
+        <nb-option value="1">By name</nb-option>
+      </nb-select>
+
+
+        <button nbButton ghost size="large" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="hover">
+          <nb-icon icon="menu-2-outline"></nb-icon>
+        </button>
+
+    </div>
+  </span>
+</nb-card>
+
+<div class="column-canvas" cdkDropList [cdkDropListData]="columns" cdkDropListOrientation="horizontal"
+(cdkDropListDropped)="drop($event)">
+  <div id="board-page"  class="column-scrollbar" cdkDropListGroup>
+    <div class="column-wrapper" *ngFor="let column of columns" cdkDrag data-drag-scroll-enabled="true">
+
+      <nb-card class="column-card" #Column (mouseenter)="onMouseEnter(Column)" (mouseleave)="onMouseOut(Column)">
+
+        <nb-card-header class="column-card-header">
+            <span class="column-card-cardname">{{column.columnName}}</span>
+            <div class="column-card-extras">
+              <button nbButton ghost status="info" [nbContextMenu]="columnOptions" nbContextMenuTrigger="click">
+                <nb-icon icon="more-horizontal-outline"></nb-icon>
+              </button>
+            </div>
+        </nb-card-header>
+
+        <nb-card-body class="tasks-list" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)">
+            <div class="task-card-wrapper" *ngFor="let task of column.tasks" cdkDrag>
+
+              <nb-card class="task-card">
+                <nb-card-header class="task-card-header">
+                  <span class="task-card-cardname">{{task.taskName}}</span>
+                  <div class="task-card-extras">
+                    <button nbButton ghost status="info" [nbContextMenu]="taskOptions" nbContextMenuTrigger="click">
+                      <nb-icon icon="more-horizontal-outline"></nb-icon>
+                    </button>
+                  </div>
+                </nb-card-header>
+                <nb-card-body>
+                  {{task.taskDescription}}
+                </nb-card-body>
+
+              </nb-card>
+            </div>
         </nb-card-body>
+
+        <nb-card-footer class="footer-card">
+          <span class="footer-card-cardname">Add New Task </span>
+          <div class="footer-card-extras">
+            <button nbButton ghost status="info">
+              <nb-icon icon="plus-outline"></nb-icon>
+            </button>
+
+          </div>
+
+        </nb-card-footer>
+
+
+
       </nb-card>
     </div>
   </div>
 </div>
+
+</div>
+
+

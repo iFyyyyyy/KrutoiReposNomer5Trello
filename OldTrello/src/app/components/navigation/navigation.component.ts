@@ -1,6 +1,6 @@
 import { BoardServiceService } from 'src/app/service/board-service.service';
 import { Component } from '@angular/core';
-import { NbMenuItem, NbMenuService, NbSidebarComponent } from '@nebular/theme';
+import { NbMenuItem, NbMenuService, NbSidebarComponent, NbThemeService } from '@nebular/theme';
 import { Board } from 'src/app/Entities/Board';
 
 @Component({
@@ -16,8 +16,9 @@ export class NavigationComponent {
 
   isLight = true;
 
-  constructor(private boardService: BoardServiceService){
+  constructor(private boardService: BoardServiceService, private themeService: NbThemeService){
     this.boards = [];
+    this.themeService.currentTheme;
   };
 
 
@@ -75,14 +76,15 @@ export class NavigationComponent {
          icon: 'arrow-right-outline'
         });
     });
-
-
-
-
-
-
   }
 
+  onClickTheme(){
+    this.isLight = !this.isLight;
+    if (this.themeService.currentTheme == 'default'){
+      this.themeService.changeTheme('dark');
+    }
+    else this.themeService.changeTheme('default');
+  }
 
 
   onMouseEnter(sidebar: NbSidebarComponent) {

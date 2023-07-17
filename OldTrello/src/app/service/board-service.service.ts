@@ -18,6 +18,10 @@ export class BoardServiceService {
         return this.http.get<Board[]>(`${this.boardsUrl}/${id}`).pipe();
       }
 
+      getBoardById(id: number): Observable<Board> {
+        return this.http.get<Board>(`${this.boardsUrl}/board/${id}`).pipe();
+      }
+
 
 
     // getAllStudents(): Observable<Student[]> {

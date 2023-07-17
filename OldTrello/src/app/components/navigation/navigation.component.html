@@ -3,12 +3,11 @@
 
         <span>trelloLogo</span>
         <span class="toolbar-item-spacer"></span>
-        <button nbButton ghost size="large" status="info" class="">
+        <button nbButton ghost size="large"  class="" (click)="onClickTheme()">
 
-          <nb-icon  *ngIf="isLight; else isDark" icon="toggle-left-outline" color="info"></nb-icon>
-          <ng-template #isDark>
-          <nb-icon #isDark icon="toggle-right-outline"></nb-icon>
-          </ng-template>
+          <nb-icon *ngIf="isLight"  icon="toggle-left-outline"></nb-icon>
+
+          <nb-icon *ngIf="!isLight" icon="toggle-right-outline"></nb-icon>
 
         </button>
         <nb-user id="user" size="large"
@@ -20,13 +19,9 @@
 
 
       <nb-sidebar #sidebar mode="side" state="compacted"
-      (mouseenter)="onMouseEnter(sidebar)"
-      (mouseleave)="onMouseOut(sidebar)">
-
-
-      <nb-menu [items]="items"> </nb-menu>
-
-
+        (mouseenter)="onMouseEnter(sidebar)"
+        (mouseleave)="onMouseOut(sidebar)">
+        <nb-menu [items]="items"></nb-menu>
       </nb-sidebar>
 
 

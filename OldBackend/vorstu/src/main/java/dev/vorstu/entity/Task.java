@@ -22,7 +22,7 @@ public class Task {
     //@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String tasKName;
+    private String taskName;
 
     private String taskDescription;
 
@@ -31,7 +31,7 @@ public class Task {
     @JoinColumn(name="column_id", nullable=false)
     private Column column;
 
-    @javax.persistence.Column(unique=true)
+
     private Long taskPosition;
 
     private Date lastUpdated;

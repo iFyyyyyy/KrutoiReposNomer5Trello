@@ -27,9 +27,18 @@ public class BoardController {
 
 
     @GetMapping("/boards/{id}")
-    public List<Board> getTasks(@PathVariable("id") Long userId) {
+    public List<Board> getAllBoards(@PathVariable("id") Long userId) {
+
         return boardService.getAll(userId);
     }
+
+    @GetMapping("/boards/board/{id}")
+    public Board getBoardById(@PathVariable("id") Long boardId) {
+
+        return boardService.getBoardById(boardId);
+    }
+
+
 
 
 }

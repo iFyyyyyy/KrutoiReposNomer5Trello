@@ -1,21 +1,31 @@
 
+
 <div class="board-main-content">
 
 
-  <div class="menu-header">
+  <nb-card class="menu-header">
     <span class="menu-content">
       <div class = "menu-options">
         <nb-form-field class="menu-options-search">
           <nb-icon nbPrefix icon="search-outline"></nb-icon>
-          <input status="info" type="text" size="large" nbInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+          <input type="text" size="small" nbInput (keyup)="applyFilter($event)" placeholder="Search" #input>
         </nb-form-field>
 
-          <button nbButton ghost size="large" status="info" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="click">
+        <nb-select class="menu-options-sort" placeholder="Select Showcase" size="small" [(selected)]="selectedItem">
+          <nb-option value="">Sort By...</nb-option>
+          <nb-option value="0">By id</nb-option>
+          <nb-option value="1">By name</nb-option>
+        </nb-select>
+
+
+          <button nbButton ghost size="large" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="hover">
             <nb-icon icon="menu-2-outline"></nb-icon>
           </button>
+
       </div>
     </span>
-  </div>
+  </nb-card>
+
 
 
   <div class="board-canvas">

@@ -1,3 +1,4 @@
+import { BoardServiceService } from 'src/app/service/board-service.service';
 
 import { Column } from '../../Entities/Column';
 import { Task} from '../../Entities/Task';
@@ -14,6 +15,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ColumnServiceService } from 'src/app/service/column-service.service';
 import { TaskServiceService } from 'src/app/service/task-service.service';
+import { Board } from 'src/app/Entities/Board';
 
 
 
@@ -27,18 +29,29 @@ export class BoardPageComponent {
 
   id: number = 0;
   private sub: any;
+  selectedItem = '';
 
   // todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep', 'SUCK VERY BIG PENIS'];
   // done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   columns: Column[];
   tasks: Task[];
+  board: Board;
 
   constructor(private route: ActivatedRoute, private columnService: ColumnServiceService,
-    private taskService: TaskServiceService){
+    private taskService: TaskServiceService, private boardService: BoardServiceService){
     this.columns = [];
     this.tasks = [];
+    this.board = new Board();
 
   }
+
+  menuOptions: NbMenuItem[] = [
+    {
+      title: 'Create New Column',
+      icon: 'plus-square-outline',
+    },
+
+  ];
 
   cardOptions: NbMenuItem[] = [
     {
@@ -47,6 +60,39 @@ export class BoardPageComponent {
       link: 'home',
     },
   ];
+
+  columnOptions: NbMenuItem[] = [
+    {
+      title: 'Edit Column',
+      icon: 'edit-outline',
+    },
+    {
+      title: 'Delete Column',
+      icon: 'trash-2-outline',
+     // link: 'home',
+    },
+  ];
+
+  taskOptions: NbMenuItem[] = [
+    {
+      title: 'Edit Task',
+      icon: 'edit-outline',
+    },
+    {
+      title: 'Delete Task',
+      icon: 'trash-2-outline',
+     // link: 'home',
+    },
+  ];
+
+
+
+  applyFilter(event: Event){};
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.board.boardName.filter = filterValue.trim().toLowerCase();
+  //   }
+  // }
 
   tasksToColumns(arr: Task[], id: number) {
     let result = [];
@@ -64,6 +110,7 @@ export class BoardPageComponent {
        this.id = +params['id']; // (+) converts string 'id' to a number
 
        this.getColumnsByBoardId(this.id);
+       this.getBoardById(this.id);
        //this.getTasksByBoardId(this.id);
 
 
@@ -71,6 +118,13 @@ export class BoardPageComponent {
        // In a real app: dispatch action to load the details here.
 
     });
+  }
+
+  getBoardById(id: number){
+    this.boardService.getBoardById(id).subscribe((board: Board) => {
+      this.board = board;
+    })
+
   }
 
   ngOnDestroy() {
