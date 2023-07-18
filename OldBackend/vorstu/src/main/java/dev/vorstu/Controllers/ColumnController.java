@@ -1,10 +1,9 @@
-package dev.vorstu.controllers;
+package dev.vorstu.Controllers;
 
 
 import dev.vorstu.Service.ColumnService;
 
-import dev.vorstu.entity.Column;
-import dev.vorstu.entity.Task;
+import dev.vorstu.Entities.ColumnDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,7 +20,7 @@ public class ColumnController {
     private ColumnService columnService;
 
     @GetMapping("/columns/{id}")
-    public List<Column> getTasks(@PathVariable("id") Long id) {
+    public List<ColumnDTO> getColumns(@PathVariable("id") Long id) {
        // long boardId = 1L;
         return columnService.getColumnsByBoardId(id);
 

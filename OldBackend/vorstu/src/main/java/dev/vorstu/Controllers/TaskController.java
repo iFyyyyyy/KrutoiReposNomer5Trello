@@ -1,11 +1,9 @@
-package dev.vorstu.controllers;
+package dev.vorstu.Controllers;
 
-
-import dev.vorstu.Service.ColumnService;
 
 import dev.vorstu.Service.TaskService;
-import dev.vorstu.entity.Column;
-import dev.vorstu.entity.Task;
+import dev.vorstu.Entities.Task;
+import dev.vorstu.Entities.TaskDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,9 +20,15 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping("/tasks/{id}")
-    public List<Task> getTasks(@PathVariable("id") Long id) {
+    public List<TaskDTO> getTasks(@PathVariable("id") Long id) {
 
-        return taskService.getTasksByBoardId(id);
+        return taskService.getTasks(id);
+    }
+
+    @GetMapping("/tasks/task/{id}")
+    public Task getTask(@PathVariable("id") Long id) {
+
+        return taskService.getTask(id);
     }
 
 //    @PostMapping("/students")

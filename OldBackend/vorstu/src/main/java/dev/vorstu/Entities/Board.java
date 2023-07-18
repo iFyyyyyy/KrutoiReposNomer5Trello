@@ -1,16 +1,15 @@
-package dev.vorstu.entity;
+package dev.vorstu.Entities;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.persistence.Column;
 
-@Entity(name = "board")
+import java.util.List;
+
+@Entity
 @Table(name = "boards")
 @Getter
 @Setter
@@ -27,13 +26,13 @@ public class Board {
 
     private String boardDescription;
 
-    @Column(unique=true)
     private Long boardPosition;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name="user_id", nullable=false)
+    @ManyToOne(fetch =  FetchType.LAZY)
     private User user;
+
+    @OneToMany( cascade = CascadeType.ALL, mappedBy = "board")
+    private List<Column> Columns;
 
 
     private boolean IsPublic;

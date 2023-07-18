@@ -3,7 +3,7 @@
   id: number;
   boardName: string;
   boardDescription: string;
-  user: string;
+  boardPosition: number;
   isPrivate: boolean;
 
 
@@ -11,7 +11,7 @@
     this.id = 0;
     this.boardName = "";
     this.boardDescription = "";
-    this.user = "userOwner";
+    this.boardPosition = 0;
     this.isPrivate = false;
 
   }

@@ -1,8 +1,8 @@
 package dev.vorstu.Service;
 
-import dev.vorstu.entity.Column;
-import dev.vorstu.repositories.BoardRepository;
-import dev.vorstu.repositories.ColumnRepository;
+import dev.vorstu.Mappers.ColumnDataMapper;
+import dev.vorstu.Entities.ColumnDTO;
+import dev.vorstu.Repositories.ColumnRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ public class ColumnService {
     private ColumnRepository columnRepository;
 
     @Autowired
-    private BoardRepository boardRepository;
+    private ColumnDataMapper columnDataMapper;
 
 
 
-    public List<Column> getColumnsByBoardId(Long boardId) {
+    public List<ColumnDTO> getColumnsByBoardId(Long boardId) {
 
-        List<Column> list = columnRepository.getColumnsByBoardId(boardId);
+        List<ColumnDTO> list = columnDataMapper.ListColumnToListColumnDTO(columnRepository.getColumns(boardId));
         return list;
     }
 }

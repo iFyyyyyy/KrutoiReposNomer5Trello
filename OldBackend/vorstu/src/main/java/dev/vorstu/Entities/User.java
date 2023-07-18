@@ -1,4 +1,4 @@
-package dev.vorstu.entity;
+package dev.vorstu.Entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Setter;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -32,6 +33,8 @@ public class User {
 //        return this.password = passwordEncoder.encode(password);
 //    }
 
+    @OneToMany( cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Board> Board;
 
     private boolean enable;
 }

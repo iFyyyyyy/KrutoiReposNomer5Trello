@@ -1,16 +1,13 @@
 package dev.vorstu.Service;
 
-import dev.vorstu.entity.Board;
-import dev.vorstu.entity.Column;
-import dev.vorstu.entity.Task;
-import dev.vorstu.repositories.BoardRepository;
-import dev.vorstu.repositories.ColumnRepository;
-import dev.vorstu.repositories.TaskRepository;
+import dev.vorstu.Mappers.TaskDataMapper;
+import dev.vorstu.Entities.Task;
+import dev.vorstu.Entities.TaskDTO;
+import dev.vorstu.Repositories.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j // log.info
@@ -18,18 +15,22 @@ import java.util.List;
 public class TaskService {
 
     @Autowired
-    BoardRepository boardRepository;
-
-    @Autowired
-    ColumnRepository columnRepository;
-
-    @Autowired
     TaskRepository taskRepository;
 
-    public List<Task> getTasksByBoardId(Long columnId) {
+    @Autowired
+    TaskDataMapper taskDataMapper;
 
-        List<Task> list = taskRepository.getTasksByBoardId(columnId);
+    public List<TaskDTO> getTasks(Long Id) {
+
+        List<TaskDTO> list = taskDataMapper.ListTaskToListTaskDTO(taskRepository.getTasksByBoardId(Id));
 
         return  list;
+    }
+
+    public Task getTask(Long Id) {
+
+        Task task = taskRepository.findById(Id).get();
+
+        return task;
     }
 }

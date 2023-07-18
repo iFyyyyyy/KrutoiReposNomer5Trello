@@ -1,11 +1,11 @@
 package dev.vorstu.Service;
 
-import dev.vorstu.entity.Board;
-import dev.vorstu.entity.Column;
-import dev.vorstu.entity.Task;
-import dev.vorstu.repositories.BoardRepository;
-import dev.vorstu.repositories.ColumnRepository;
-import dev.vorstu.repositories.TaskRepository;
+
+import dev.vorstu.Mappers.BoardDataMapper;
+import dev.vorstu.Entities.Board;
+import dev.vorstu.Entities.BoardDTO;
+import dev.vorstu.Repositories.BoardRepository;
+import dev.vorstu.Repositories.ColumnRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,24 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+
+    @Autowired
+    private BoardDataMapper boardDataMapper;
+
     @Autowired
     private ColumnRepository columnRepository;
 
-    public List<Board> getAll(Long userId) {
-        List<Board> list = boardRepository.getBoardsByUserId(userId);
+    public List<BoardDTO> getAll(Long userId) {
 
-        return list;
+
+        List<BoardDTO> listDTO = boardDataMapper.ListBoardToListBoardDTO(boardRepository.getAllBoards(userId));
+
+        return listDTO;
     }
 
-    public Board getBoardById(Long BoardId) {
-         Board board = boardRepository.findById(BoardId).get();
-         return board;
+    public BoardDTO getBoard(Long BoardId) {
+         BoardDTO boardDTO = boardDataMapper.BoardToBoardDTO(boardRepository.findById(BoardId).get());
+         return boardDTO;
     }
 
 

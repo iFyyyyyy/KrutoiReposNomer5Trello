@@ -3,7 +3,7 @@
 
         <span>trelloLogo</span>
         <span class="toolbar-item-spacer"></span>
-        <button nbButton ghost size="large"  class="" (click)="onClickTheme()">
+        <button style="margin-right: 20px;" nbButton ghost size="large"  class="" (click)="onClickTheme()">
 
           <nb-icon *ngIf="isLight"  icon="toggle-left-outline"></nb-icon>
 
@@ -27,7 +27,7 @@
 
 
 
-      <nb-layout-column class="colored-column-success">
+      <nb-layout-column style="padding: 8px" class="layout-column">
         <router-outlet></router-outlet>
       </nb-layout-column>
     </nb-layout>

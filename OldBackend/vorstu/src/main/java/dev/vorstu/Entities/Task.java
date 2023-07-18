@@ -1,7 +1,6 @@
-package dev.vorstu.entity;
+package dev.vorstu.Entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "task")
+@Entity
 @Table(name = "tasks")
 @Getter
 @Setter
@@ -26,15 +25,25 @@ public class Task {
 
     private String taskDescription;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name="column_id", nullable=false)
+    //@JsonBackReference
+    @ManyToOne(fetch =  FetchType.LAZY)
     private Column column;
 
 
     private Long taskPosition;
 
     private Date lastUpdated;
+
+
+//    public Date getSubmissionDateConverted(String timezone) throws ParseException {
+//        dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
+//        return dateFormat.parse(this.date);
+//    }
+//
+//    public void setSubmissionDate(Date date, String timezone) {
+//        dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
+//        this.date = dateFormat.format(date);
+//    }
 
 
     // Files

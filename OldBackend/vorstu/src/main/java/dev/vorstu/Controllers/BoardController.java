@@ -1,9 +1,9 @@
-package dev.vorstu.controllers;
+package dev.vorstu.Controllers;
 
 
 import dev.vorstu.Service.BoardService;
-import dev.vorstu.entity.Board;
-import dev.vorstu.entity.Task;
+import dev.vorstu.Entities.Board;
+import dev.vorstu.Entities.BoardDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,15 +27,15 @@ public class BoardController {
 
 
     @GetMapping("/boards/{id}")
-    public List<Board> getAllBoards(@PathVariable("id") Long userId) {
+    public List<BoardDTO> getAllBoards(@PathVariable("id") Long userId) {
 
         return boardService.getAll(userId);
     }
 
     @GetMapping("/boards/board/{id}")
-    public Board getBoardById(@PathVariable("id") Long boardId) {
+    public BoardDTO getBoard(@PathVariable("id") Long boardId) {
 
-        return boardService.getBoardById(boardId);
+        return boardService.getBoard(boardId);
     }
 
 

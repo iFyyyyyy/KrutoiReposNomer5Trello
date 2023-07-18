@@ -1,4 +1,4 @@
-package dev.vorstu.entity;
+package dev.vorstu.Entities;
 
 import lombok.Getter;
 

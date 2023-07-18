@@ -1,12 +1,11 @@
 package dev.vorstu;
 
-import dev.vorstu.entity.*;
+import dev.vorstu.Entities.*;
 
-import dev.vorstu.repositories.TaskRepository;
-import dev.vorstu.repositories.ColumnRepository;
-import dev.vorstu.repositories.BoardRepository;
-import dev.vorstu.repositories.UserRepository;
-import jdk.nashorn.internal.runtime.Undefined;
+import dev.vorstu.Repositories.TaskRepository;
+import dev.vorstu.Repositories.ColumnRepository;
+import dev.vorstu.Repositories.BoardRepository;
+import dev.vorstu.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,8 +33,10 @@ public class Initializer {
         userRepository.save(new User(
                 1L,
                 "user1",
+
                 Role.USER,
                 "1234",
+                null,
                 //user.SetPassword("1234"),
                 true));
 
@@ -46,6 +47,7 @@ public class Initializer {
                 "Board1Desc1",
                 1L,
                 userRepository.findById(1L).get(),
+                null,
                 true));
 
         boardRepository.save(new Board(
@@ -54,6 +56,7 @@ public class Initializer {
                 "Board2Desc2",
                 2L,
                 userRepository.findById(1L).get(),
+                null,
                 true));
 
         boardRepository.save(new Board(
@@ -62,6 +65,7 @@ public class Initializer {
                 "Board3Desc3",
                 3L,
                 userRepository.findById(1L).get(),
+                null,
                 true));
 
         boardRepository.save(new Board(
@@ -70,6 +74,7 @@ public class Initializer {
                 "Board4Desc4",
                 4L,
                 userRepository.findById(1L).get(),
+                null,
                 true));
 
         boardRepository.save(new Board(
@@ -78,6 +83,7 @@ public class Initializer {
                 "Board5Desc5",
                 5L,
                 userRepository.findById(1L).get(),
+                null,
                 true));
 
         boardRepository.save(new Board(
@@ -86,44 +92,49 @@ public class Initializer {
                 "Board6Desc6",
                 6L,
                 userRepository.findById(1L).get(),
+                null,
                 true));
 
         //Columns
         columnRepository.save(new Column(
                 1L,
                 "    ToDo    ",
+                1L,
                 boardRepository.findById(1L).get(),
-                null,
-                1L));
+                null
+                ));
 
         columnRepository.save(new Column(
                 2L,
                 "InProgress",
+                2L,
                 boardRepository.findById(1L).get(),
-                null,
-                2L
+                null
                 ));
 
         columnRepository.save(new Column(
                 3L,
                 "Completed",
+                3L,
                 boardRepository.findById(1L).get(),
-                null,
-                3L));
+                null
+                ));
 
         columnRepository.save(new Column(
                 4L,
                 "Column2",
+                1L,
                 boardRepository.findById(2L).get(),
-                null,
-                4L));
+                null
+                ));
 
         columnRepository.save(new Column(
                 5L,
                 "Another Column",
+                2L,
                 boardRepository.findById(2L).get(),
-                null,
-                5L));
+                null
+                ));
 
 
 
