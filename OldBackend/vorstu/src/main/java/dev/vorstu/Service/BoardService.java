@@ -40,4 +40,13 @@ public class BoardService {
     }
 
 
+
+    public Board createNewBoard(Board board){
+
+        return boardRepository.save(board);
+
+    }
+
+
+
 }

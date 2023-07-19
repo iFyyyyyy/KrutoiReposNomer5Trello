@@ -19,7 +19,10 @@ public class Column {
 
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "column_seq", sequenceName = " common_sequence3 ",
+            initialValue = 1, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "column_seq")
+    @javax.persistence.Column(name = "id", nullable = false)
     private Long id;
 
     private String columnName;

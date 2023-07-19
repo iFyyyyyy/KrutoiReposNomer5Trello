@@ -89,16 +89,11 @@ export class NavigationComponent {
 
   onMouseEnter(sidebar: NbSidebarComponent) {
     sidebar.expand();
-    //this.expanded = true;
-
-    //this.items.collapseItems
-
-
   }
 
   onMouseOut(sidebar: NbSidebarComponent) {
     sidebar.compact();
     this.expanded = false;
-
 }
+
 }

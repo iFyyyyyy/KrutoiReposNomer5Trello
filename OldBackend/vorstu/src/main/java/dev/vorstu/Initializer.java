@@ -2,9 +2,10 @@ package dev.vorstu;
 
 import dev.vorstu.Entities.*;
 
-import dev.vorstu.Repositories.TaskRepository;
-import dev.vorstu.Repositories.ColumnRepository;
+
 import dev.vorstu.Repositories.BoardRepository;
+import dev.vorstu.Repositories.ColumnRepository;
+import dev.vorstu.Repositories.TaskRepository;
 import dev.vorstu.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -45,7 +46,7 @@ public class Initializer {
                 1L,
                 "Board1",
                 "Board1Desc1",
-                1L,
+                2L,
                 userRepository.findById(1L).get(),
                 null,
                 true));
@@ -54,7 +55,7 @@ public class Initializer {
                 2L,
                 "Board2",
                 "Board2Desc2",
-                2L,
+                1L,
                 userRepository.findById(1L).get(),
                 null,
                 true));
@@ -100,7 +101,7 @@ public class Initializer {
                 1L,
                 "    ToDo    ",
                 1L,
-                boardRepository.findById(1L).get(),
+                boardRepository.findById(2L).get(),
                 null
                 ));
 
@@ -108,7 +109,7 @@ public class Initializer {
                 2L,
                 "InProgress",
                 2L,
-                boardRepository.findById(1L).get(),
+                boardRepository.findById(2L).get(),
                 null
                 ));
 
@@ -116,7 +117,7 @@ public class Initializer {
                 3L,
                 "Completed",
                 3L,
-                boardRepository.findById(1L).get(),
+                boardRepository.findById(2L).get(),
                 null
                 ));
 
@@ -124,7 +125,7 @@ public class Initializer {
                 4L,
                 "Column2",
                 1L,
-                boardRepository.findById(2L).get(),
+                boardRepository.findById(1L).get(),
                 null
                 ));
 
@@ -132,7 +133,7 @@ public class Initializer {
                 5L,
                 "Another Column",
                 2L,
-                boardRepository.findById(2L).get(),
+                boardRepository.findById(1L).get(),
                 null
                 ));
 

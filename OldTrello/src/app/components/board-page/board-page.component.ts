@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { NbCardComponent, NbMenuItem } from '@nebular/theme';
 import {
   CdkDragDrop,
+  CdkDragPlaceholder,
   CdkDrag,
   CdkDropList,
   CdkDropListGroup,

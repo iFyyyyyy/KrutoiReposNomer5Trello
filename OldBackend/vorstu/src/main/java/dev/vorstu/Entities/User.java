@@ -17,7 +17,10 @@ import java.util.List;
 public class User {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "user_seq", sequenceName = " common_sequence1 ",
+            initialValue = 1, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @javax.persistence.Column(name = "id", nullable = false)
     private Long id;
 
     private String username;

@@ -33,8 +33,10 @@
     (cdkDropListDropped)="drop($event)">
       <div class="board-wrapper" *ngFor="let board of boards" cdkDrag
       data-drag-scroll-enabled="true">
+      <div class="board-card-placeholder" *cdkDragPlaceholder
+        ></div>
 
-            <nb-card class="board-card" #Board size="tiny"
+            <nb-card class="board-card" #Board
               (mouseenter)="onMouseEnter(Board)"
               (mouseleave)="onMouseOut(Board)">
               <nb-card-header class="board-card-header">

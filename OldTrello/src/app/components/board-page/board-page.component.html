@@ -24,10 +24,12 @@
   </span>
 </nb-card>
 
+
 <div class="column-canvas" cdkDropList [cdkDropListData]="columns" cdkDropListOrientation="horizontal"
 (cdkDropListDropped)="drop($event)">
   <div id="board-page"  class="column-scrollbar" cdkDropListGroup>
     <div class="column-wrapper" *ngFor="let column of columns" cdkDrag data-drag-scroll-enabled="true">
+      <div class="column-card-placeholder" *cdkDragPlaceholder cdkDragPlaceholderOrientation="horizontal"></div>
 
       <nb-card class="column-card" #Column (mouseenter)="onMouseEnter(Column)" (mouseleave)="onMouseOut(Column)">
 
@@ -42,6 +44,7 @@
 
         <nb-card-body class="tasks-list" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)">
             <div class="task-card-wrapper" *ngFor="let task of column.tasks" cdkDrag>
+              <div class="task-card-placeholder" *cdkDragPlaceholder></div>
 
               <nb-card class="task-card">
                 <nb-card-header class="task-card-header">

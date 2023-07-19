@@ -18,7 +18,10 @@ import java.util.Date;
 public class Task {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "task_seq", sequenceName = " common_sequence2 ",
+            initialValue = 1, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
+    @javax.persistence.Column(name = "id", nullable = false)
     private Long id;
 
     private String taskName;
