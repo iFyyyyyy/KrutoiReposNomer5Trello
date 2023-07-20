@@ -1,12 +1,12 @@
 package dev.vorstu;
 
-import dev.vorstu.Entities.*;
+import dev.vorstu.entities.*;
 
 
-import dev.vorstu.Repositories.BoardRepository;
-import dev.vorstu.Repositories.ColumnRepository;
-import dev.vorstu.Repositories.TaskRepository;
-import dev.vorstu.Repositories.UserRepository;
+import dev.vorstu.repositories.BoardRepository;
+import dev.vorstu.repositories.ColumnRepository;
+import dev.vorstu.repositories.TaskRepository;
+import dev.vorstu.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

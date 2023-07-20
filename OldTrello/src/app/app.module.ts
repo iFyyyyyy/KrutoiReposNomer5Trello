@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NbCardModule, NbSelectModule, NbThemeModule, NbContextMenuModule, NbInputModule, NbSearchModule, NbFormFieldModule, NbUserModule, NbLayoutModule, NbIconModule, NbSidebarModule, NbMenuModule, NbActionsModule, NbButtonModule, NbSidebarService } from '@nebular/theme';
+import { NbDialogModule, NbCardModule, NbSelectModule, NbThemeModule, NbContextMenuModule, NbInputModule, NbSearchModule, NbFormFieldModule, NbUserModule, NbLayoutModule, NbIconModule, NbSidebarModule, NbMenuModule, NbActionsModule, NbButtonModule, NbSidebarService } from '@nebular/theme';
+//import { NbDialogModule, NbCardModule, NbSelectModule, NbThemeModule, NbContextMenuModule, NbInputModule, NbSearchModule, NbFormFieldModule, NbUserModule, NbLayoutModule, NbIconModule, NbSidebarModule, NbMenuModule, NbActionsModule, NbButtonModule, NbSidebarService } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -12,8 +13,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { NbListModule } from '@nebular/theme';
 import {MatCardModule} from '@angular/material/card';
 
+
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateBoardWrapperComponent } from './components/wrappers/create-board-wrapper/create-board-wrapper.component';
+//import { DialogEditWrapperComponent } from './components/wrappers/dialog-edit-wrapper/dialog-edit-wrapper.component';
 
 
 @NgModule({
@@ -21,7 +26,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     NavigationComponent,
     HomePageComponent,
-    BoardPageComponent
+    BoardPageComponent,
+    CreateBoardWrapperComponent,
+    //DialogEditWrapperComponent
   ],
   imports: [
     BrowserModule,
@@ -43,13 +50,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NbContextMenuModule,
     NbSelectModule,
 
+
     DragDropModule,
     NbListModule,
     MatCardModule,
+    NbDialogModule.forRoot(),
 
     HttpClientModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: 'default' }),
+    NbThemeModule.forRoot({ name: 'dark' }),
 
 
 

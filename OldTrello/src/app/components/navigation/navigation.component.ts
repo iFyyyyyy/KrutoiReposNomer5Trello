@@ -80,10 +80,10 @@ export class NavigationComponent {
 
   onClickTheme(){
     this.isLight = !this.isLight;
-    if (this.themeService.currentTheme == 'default'){
+    if (this.themeService.currentTheme == 'dark'){
       this.themeService.changeTheme('dark');
     }
-    else this.themeService.changeTheme('default');
+    else this.themeService.changeTheme('dark');
   }
 
 

@@ -1,8 +1,8 @@
 import { style } from '@angular/animations';
 import { AppRoutingModule } from './../../app-routing.module';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbCardComponent, NbMenuItem } from '@nebular/theme';
+import { NbCardComponent, NbMenuItem, NbMenuService, NbDialogModule, NbDialogService } from '@nebular/theme';
 import { Board } from 'src/app/Entities/Board';
 import {
   CdkDragDrop,
@@ -13,6 +13,9 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { BoardServiceService } from 'src/app/service/board-service.service';
+import { CreateBoardWrapperComponent } from '../wrappers/create-board-wrapper/create-board-wrapper.component';
+import { BoardUpdateWrapperComponent } from '../wrappers/board-update-wrapper/board-update-wrapper.component';
+//import { DialogEditWrapperComponent } from '../wrappers/dialog-edit-wrapper/dialog-edit-wrapper.component';
 
 @Component({
   selector: 'app-home-page',
@@ -26,9 +29,14 @@ export class HomePageComponent {
 
 
   // USER ID
-  id: number = 1;
+  userId: number = 1;
 
-  constructor(private router: Router, private boardService: BoardServiceService){
+  constructor(
+    private router: Router,
+    private boardService: BoardServiceService,
+    private menuService: NbMenuService,
+    public dialog: NbDialogService
+    ){
     this.boards = [];
   }
 
@@ -55,21 +63,74 @@ export class HomePageComponent {
   ];
 
 
-
-    //   Testboards = [
-    //   {id: 0, name: "BoardName1", description: "BoardDescription1", user: "user1", isPrivate: "public"},
-    //   {id: 1, name: "BoardName2", description: "BoardDescription2", user: "user2", isPrivate: "public"},
-    //   {id: 2, name: "BoardName3", description: "BoardDescription3", user: "user3", isPrivate: "public"},
-    //   {id: 3, name: "BoardName4", description: "BoardDescription4", user: "user4", isPrivate: "public"},
-    // ];
-
     ngOnInit(){
-      this.boardService.getAllBoards(this.id).subscribe((result: Board[]) => {
-        console.log(result);
-        this.boards = result;
+      this.getAllBoards(this.userId);
+    }
 
+
+    getAllBoards(userId: number){
+      this.boardService.getAllBoards(userId).subscribe((boards: Board[]) => {
+        console.log(boards);
+        this.boards = boards;
       })
     }
+
+
+    // getSelectedItem() {
+    //   this.menuService.getSelectedItem('menu')
+    //     .pipe(takeUntil(this.destroy$))
+    //     .subscribe( (menuBag) => {
+    //       this.selectedItem = menuBag.item.title;
+    //     });
+    // }
+
+
+    addNewBoard() {
+      const dialogAddingNewBoard = this.dialog.open(BoardUpdateWrapperComponent, {
+        closeOnBackdropClick: true,
+        context: {data: null},
+      });
+      dialogAddingNewBoard.onClose.subscribe(board => {
+        if(board != null) {
+          console.log("adding new board: " + board.boardName);
+          this.boardService.addNewBoard(board, this.userId).subscribe(k=>
+            this.getAllBoards(this.userId));
+        }
+      });
+    }
+
+    // updateStudent(student: Student) {
+    //   console.log("updating student " + student);
+    //   const dialogUpdatingStudent = this.dialog.open(DialogUpdateWrapperComponent, {
+    //     width: '400px',
+    //     data: student
+    //   });
+    //   dialogUpdatingStudent.afterClosed().subscribe((result: Student) => {
+    //     if(result != null) {
+    //       console.log("updating student" + result);
+    //       this.baseService.updateStudent(result).subscribe(k=>
+    //         this.baseService.getStudents(this.pageIndex, this.pageSize).subscribe(data =>  {this.dataSource.data = data;
+    //         }));
+    //     }
+    //   });
+    // }
+
+    // deleteStudent(student: Student){
+    //   console.log("Deleting student " + student);
+    //   this.baseService.deleteStudent(student).subscribe(k =>
+    //     this.baseService.getStudents(this.pageIndex, this.pageSize).subscribe(data => {this.dataSource.data = data;
+    //     }))
+    // }
+
+    onItemClick(){
+      this.menuService.onItemClick().subscribe((data) => {
+        if (data.item.link === undefined) {
+          const item = data.item as any;
+          item.click();
+        }
+      });
+  }
+
 
 
 

@@ -17,10 +17,14 @@
           <nb-option value="1">By name</nb-option>
         </nb-select>
 
+        <nb-actions size="medium">
+          <nb-action icon="plus-square-outline" (click)="addNewBoard()"></nb-action>
+        </nb-actions>
 
-          <button nbButton ghost size="large" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="hover">
+
+          <!-- <button nbButton ghost size="large" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="hover">
             <nb-icon icon="menu-2-outline"></nb-icon>
-          </button>
+          </button> -->
 
       </div>
     </span>
@@ -56,6 +60,13 @@
               </div>
             </nb-card>
       </div>
+      <!-- <div class="board-wrapper">
+        <form>
+          <nb-card class="open-add-board">
+            <span class="placeholder">Add new Board...</span>
+          </nb-card>
+        </form>
+      </div> -->
     </div>
   </div>
 <!--

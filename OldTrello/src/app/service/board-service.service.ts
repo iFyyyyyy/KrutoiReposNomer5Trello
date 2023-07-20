@@ -22,6 +22,11 @@ export class BoardServiceService {
         return this.http.get<Board>(`${this.boardsUrl}/board/${id}`).pipe();
       }
 
+      addNewBoard(board: Board, userId: number): Observable<Board> {
+        console.log("adding new board: " + board.boardName + "To userId: "+ userId)
+        return this.http.post<Board>(`${this.boardsUrl}/${userId}`, board).pipe();
+      }
+
 
 
     // getAllStudents(): Observable<Student[]> {
