@@ -1,11 +1,13 @@
 package dev.vorstu.service;
 
 
-import dev.vorstu.mappers.BoardDataMapper;
+//import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.entities.Board;
 import dev.vorstu.entities.BoardDTO;
+import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.repositories.BoardRepository;
 import dev.vorstu.repositories.ColumnRepository;
+import dev.vorstu.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class BoardService {
     private BoardDataMapper boardDataMapper;
 
     @Autowired
-    private ColumnRepository columnRepository;
+    private UserRepository userRepository;
 
     public List<BoardDTO> getAll(Long userId) {
 
@@ -41,11 +43,37 @@ public class BoardService {
 
 
 
-    public Board createNewBoard(Board board){
+    public Board createNewBoard(Board board, Long userId){
 
+        board.setId(null);
+        board.setUser(userRepository.findById(userId).get());
+        board.setBoardPosition(boardRepository.count());
+        board.setColumns(null);
         return boardRepository.save(board);
 
     }
+
+    public Board updateBoard(Board updatingBoard, Long boardId){
+
+        if (boardRepository.existsById(boardId)){
+            log.info("cant find board");
+        }
+        Board board = boardRepository.findById(boardId).get();
+        board.setBoardName(updatingBoard.getBoardName());
+        board.setBoardDescription(updatingBoard.getBoardDescription());
+        board.setIsPrivate(updatingBoard.isIsPrivate());
+
+        return boardRepository.save(board);
+    }
+
+    public void deleteBoard(Long boardId) {
+        if (boardRepository.existsById(boardId)){
+            log.info("cant find board");
+        }
+        boardRepository.deleteById(boardId);
+    }
+
+
 
 
 

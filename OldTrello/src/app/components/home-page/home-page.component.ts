@@ -14,7 +14,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { BoardServiceService } from 'src/app/service/board-service.service';
 import { CreateBoardWrapperComponent } from '../wrappers/create-board-wrapper/create-board-wrapper.component';
-import { BoardUpdateWrapperComponent } from '../wrappers/board-update-wrapper/board-update-wrapper.component';
+import { ArrayDataSource } from '@angular/cdk/collections';
+import { UpdateBoardWrapperComponent } from '../wrappers/update-board-wrapper/update-board-wrapper.component';
 //import { DialogEditWrapperComponent } from '../wrappers/dialog-edit-wrapper/dialog-edit-wrapper.component';
 
 @Component({
@@ -54,6 +55,8 @@ export class HomePageComponent {
     },
   ];
 
+
+
   menuOptions: NbMenuItem[] = [
     {
       title: 'Create New Board',
@@ -61,6 +64,7 @@ export class HomePageComponent {
     },
 
   ];
+
 
 
     ngOnInit(){
@@ -71,7 +75,7 @@ export class HomePageComponent {
     getAllBoards(userId: number){
       this.boardService.getAllBoards(userId).subscribe((boards: Board[]) => {
         console.log(boards);
-        this.boards = boards;
+        this.boards =  boards;
       })
     }
 
@@ -86,41 +90,47 @@ export class HomePageComponent {
 
 
     addNewBoard() {
-      const dialogAddingNewBoard = this.dialog.open(BoardUpdateWrapperComponent, {
+      const dialogAddingNewBoard = this.dialog.open(CreateBoardWrapperComponent, {
         closeOnBackdropClick: true,
         context: {data: null},
       });
       dialogAddingNewBoard.onClose.subscribe(board => {
         if(board != null) {
-          console.log("adding new board: " + board.boardName);
-          this.boardService.addNewBoard(board, this.userId).subscribe(k=>
-            this.getAllBoards(this.userId));
+          this.boardService.addNewBoard(board, this.userId).subscribe(k=> {
+            this.getAllBoards(this.userId);
+          });
         }
       });
     }
 
-    // updateStudent(student: Student) {
-    //   console.log("updating student " + student);
-    //   const dialogUpdatingStudent = this.dialog.open(DialogUpdateWrapperComponent, {
-    //     width: '400px',
-    //     data: student
-    //   });
-    //   dialogUpdatingStudent.afterClosed().subscribe((result: Student) => {
-    //     if(result != null) {
-    //       console.log("updating student" + result);
-    //       this.baseService.updateStudent(result).subscribe(k=>
-    //         this.baseService.getStudents(this.pageIndex, this.pageSize).subscribe(data =>  {this.dataSource.data = data;
-    //         }));
-    //     }
-    //   });
-    // }
+    updateBoard(board: Board) {
+      const dialogUpdatingBoard = this.dialog.open(UpdateBoardWrapperComponent, {
+        closeOnBackdropClick: true,
+        context: {updatingBoard: board},
+      });
+      dialogUpdatingBoard.onClose.subscribe(board => {
+        if(board != null) {
+          this.boardService.updateBoard(board).subscribe(k=> {
+            this.getAllBoards(this.userId);
+          });
+        }
+      });
+    }
 
-    // deleteStudent(student: Student){
-    //   console.log("Deleting student " + student);
-    //   this.baseService.deleteStudent(student).subscribe(k =>
-    //     this.baseService.getStudents(this.pageIndex, this.pageSize).subscribe(data => {this.dataSource.data = data;
-    //     }))
-    // }
+    updateBoardPosition(board: Board, newPosition: number){
+      board.boardPosition = newPosition;
+      this.boardService.updateBoard(board).subscribe(k => {
+        this.getAllBoards(this.userId);
+      })
+
+    }
+
+
+    deleteBoard(board: Board){
+      this.boardService.deleteBoard(board).subscribe(k=> {
+        this.getAllBoards(this.userId);
+    });
+  }
 
     onItemClick(){
       this.menuService.onItemClick().subscribe((data) => {
@@ -155,16 +165,20 @@ export class HomePageComponent {
       //card.style.marginTop = "0px" ;
     }
 
-      drop(event: CdkDragDrop<any[]>) {
+      drop(event: CdkDragDrop<Board[]>) {
+        console.log(event);
         if (event.previousContainer === event.container) {
           moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
           transferArrayItem(
+
             event.previousContainer.data,
             event.container.data,
             event.previousIndex,
             event.currentIndex,
           );
+          //this.updateBoardPosition(event.container.data, event.currentIndex)
+
         }
       };
 

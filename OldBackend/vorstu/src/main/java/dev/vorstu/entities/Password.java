@@ -16,17 +16,13 @@ public class Password {
     static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Password(String password) {
-        this.password = passwordEncoder.encode(password);}
+        this.password = passwordEncoder.encode(password);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String password;
-
-    @JsonIgnore
-    private void setPasswordWithEncoding(String password) {
-        this.password = passwordEncoder.encode(password);
-    }
 
 
 

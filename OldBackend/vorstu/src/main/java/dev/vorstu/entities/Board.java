@@ -38,6 +38,6 @@ public class Board {
     private List<Column> Columns;
 
 
-    private boolean IsPublic;
+    private boolean IsPrivate;
 
 }

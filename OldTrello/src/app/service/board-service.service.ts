@@ -23,8 +23,18 @@ export class BoardServiceService {
       }
 
       addNewBoard(board: Board, userId: number): Observable<Board> {
-        console.log("adding new board: " + board.boardName + "To userId: "+ userId)
-        return this.http.post<Board>(`${this.boardsUrl}/${userId}`, board).pipe();
+        console.log("adding new board: " + board.boardName + " To userId: "+ userId)
+        return this.http.post<Board>(`${this.boardsUrl}?userId=${userId}`, board).pipe();
+      }
+
+      updateBoard(board: Board): Observable<Board> {
+        console.log("updating board: " + board.boardName)
+        return this.http.put<Board>(`${this.boardsUrl}/board/${board.id}`, board).pipe();
+      }
+
+      deleteBoard(board: Board): Observable<Board> {
+        console.log("updating board: " + board.boardName)
+        return this.http.delete<Board>(`${this.boardsUrl}/board/${board.id}`).pipe();
       }
 
 

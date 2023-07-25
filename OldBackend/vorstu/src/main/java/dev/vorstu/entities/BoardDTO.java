@@ -19,6 +19,6 @@ public class BoardDTO {
 
     private Long boardPosition;
 
-    private boolean IsPublic;
+    private boolean IsPrivate;
 
 }

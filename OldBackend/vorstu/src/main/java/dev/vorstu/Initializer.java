@@ -43,7 +43,7 @@ public class Initializer {
 
         //Boards
         boardRepository.save(new Board(
-                1L,
+                null,
                 "Board1",
                 "Board1Desc1",
                 2L,
@@ -52,7 +52,7 @@ public class Initializer {
                 true));
 
         boardRepository.save(new Board(
-                2L,
+                null,
                 "Board2",
                 "Board2Desc2",
                 1L,
@@ -61,7 +61,7 @@ public class Initializer {
                 true));
 
         boardRepository.save(new Board(
-                3L,
+                null,
                 "Board3",
                 "Board3Desc3",
                 3L,
@@ -70,7 +70,7 @@ public class Initializer {
                 true));
 
         boardRepository.save(new Board(
-                4L,
+                null,
                 "Board4",
                 "Board4Desc4",
                 4L,
@@ -79,7 +79,7 @@ public class Initializer {
                 true));
 
         boardRepository.save(new Board(
-                5L,
+                null,
                 "Board5",
                 "Board5Desc5",
                 5L,
@@ -88,7 +88,7 @@ public class Initializer {
                 true));
 
         boardRepository.save(new Board(
-                6L,
+                null,
                 "Board6",
                 "Board6Desc6",
                 6L,
@@ -98,15 +98,15 @@ public class Initializer {
 
         //Columns
         columnRepository.save(new Column(
-                1L,
-                "    ToDo    ",
+                null,
+                "ToDo",
                 1L,
                 boardRepository.findById(2L).get(),
                 null
                 ));
 
         columnRepository.save(new Column(
-                2L,
+                null,
                 "InProgress",
                 2L,
                 boardRepository.findById(2L).get(),
@@ -114,7 +114,7 @@ public class Initializer {
                 ));
 
         columnRepository.save(new Column(
-                3L,
+                null,
                 "Completed",
                 3L,
                 boardRepository.findById(2L).get(),
@@ -122,7 +122,7 @@ public class Initializer {
                 ));
 
         columnRepository.save(new Column(
-                4L,
+                null,
                 "Column2",
                 1L,
                 boardRepository.findById(1L).get(),
@@ -130,7 +130,7 @@ public class Initializer {
                 ));
 
         columnRepository.save(new Column(
-                5L,
+                null,
                 "Another Column",
                 2L,
                 boardRepository.findById(1L).get(),
@@ -140,7 +140,7 @@ public class Initializer {
 
 
         taskRepository.save(new Task(
-                1L,
+                null,
                 "Task1",
                 "Task1Column1_ToDo",
                 columnRepository.findById(1L).get(),
@@ -149,7 +149,7 @@ public class Initializer {
         ));
 
         taskRepository.save(new Task(
-                2L,
+                null,
                 "Task2",
                 "Task2Column1_ToDo",
                 columnRepository.findById(1L).get(),
@@ -158,7 +158,7 @@ public class Initializer {
         ));
 
         taskRepository.save(new Task(
-                3L,
+                null,
                 "Task3",
                 "Task3Column2",
                 columnRepository.findById(2L).get(),
@@ -167,7 +167,7 @@ public class Initializer {
         ));
 
         taskRepository.save(new Task(
-                4L,
+                null,
                 "Task4",
                 "Task4Column3",
                 columnRepository.findById(3L).get(),

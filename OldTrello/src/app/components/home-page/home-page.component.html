@@ -33,12 +33,15 @@
 
 
   <div class="board-canvas">
-    <div id="home-page" class="board-scrollbar" cdkDropList [cdkDropListData]="boards" cdkDropListOrientation="horizontal"
-    (cdkDropListDropped)="drop($event)">
-      <div class="board-wrapper" *ngFor="let board of boards" cdkDrag
+    <div  id="home-page"
+          class="board-scrollbar"
+          cdkDropList
+          [cdkDropListData]="boards"
+          cdkDropListOrientation="horizontal"
+          (cdkDropListDropped)="drop($event)">
+      <div class="board-wrapper"  *ngFor="let board of boards; let i = index" cdkDrag
       data-drag-scroll-enabled="true">
-      <div class="board-card-placeholder" *cdkDragPlaceholder
-        ></div>
+      <div class="board-card-placeholder" *cdkDragPlaceholder></div>
 
             <nb-card class="board-card" #Board
               (mouseenter)="onMouseEnter(Board)"
@@ -47,9 +50,24 @@
                 <div>
                   <span class="board-card-boardname" [routerLink]="['/board', board.id]">{{board.boardName}}</span>
                   <div class="board-card-extras">
-                    <button nbButton ghost status="info" [nbContextMenu]="boardOptions" nbContextMenuTrigger="click">
-                      <nb-icon icon="more-horizontal-outline"></nb-icon>
+
+                    <button nbButton ghost status="info" (click)="updateBoard(board)">
+                      <nb-icon icon="edit-2-outline"></nb-icon>
                     </button>
+
+                    <button nbButton ghost status="info" (click)="deleteBoard(board)">
+                      <nb-icon icon="trash-2-outline"></nb-icon>
+                    </button>
+
+
+                    <!-- <button nbButton
+                            ghost
+                            status="info"
+                            [nbContextMenu]="boardOptions"
+                            nbContextMenuTrigger="click"
+                            nbMenuItem>
+                      <nb-icon icon="more-horizontal-outline"></nb-icon>
+                    </button> -->
                   </div>
                 </div>
               </nb-card-header>

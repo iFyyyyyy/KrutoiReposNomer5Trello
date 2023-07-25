@@ -1,6 +1,7 @@
 package dev.vorstu.controllers;
 
 
+import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.service.BoardService;
 import dev.vorstu.entities.Board;
 import dev.vorstu.entities.BoardDTO;
@@ -20,6 +21,9 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private BoardDataMapper boardDataMapper;
+
     @GetMapping("/boards/{id}")
     public List<BoardDTO> getAllBoards(@PathVariable("id") Long userId) {
 
@@ -33,13 +37,25 @@ public class BoardController {
     }
 
     @PostMapping("/boards")
-    public Board createNewBoard(@RequestBody Board newBoard) {
+    public BoardDTO createNewBoard( @RequestParam Long userId,@RequestBody Board newBoard) {
 
-        // curl -X POST "http://localhost:8080/boards" -H "Content-Type: Application/json" {} -v
-        return boardService.createNewBoard(newBoard);
+        Board board = boardService.createNewBoard(newBoard, userId);
+
+        return boardDataMapper.BoardToBoardDTO(board);
     }
 
+    @PutMapping("/boards/board/{id}")
+    public BoardDTO updateBoard(@PathVariable("id") Long boardId,@RequestBody Board updatingBoard) {
 
+        Board board = boardService.updateBoard(updatingBoard, boardId);
+
+        return boardDataMapper.BoardToBoardDTO(board);
+    }
+
+    @DeleteMapping("/boards/board/{id}")
+    public void deleteBoard(@PathVariable("id") Long boardId) {
+         boardService.deleteBoard(boardId);
+    }
 
 
 }
