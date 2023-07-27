@@ -1,0 +1,13 @@
+<div class="dialog-wrapper">
+<nb-card class="card-box">
+<h1 id="title" class="title">{{dialogHeader}}</h1>
+
+<form #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <button nbButton fullWidth status="info" (click)="onFormSubmit()" > Delete </button>
+    <button nbButton fullWidth status="danger" (click)="onFormCancel()" > Cancel </button>
+  </div>
+</form>
+</nb-card>
+</div>

@@ -11,7 +11,7 @@ import { Board } from 'src/app/Entities/Board';
 export class NavigationComponent {
   expanded: boolean = false;
 
-  boards: Board[];
+  boards: Board[] | null;
   id: number = 1;
 
   isLight = true;
@@ -55,27 +55,35 @@ export class NavigationComponent {
 
 
   ngOnInit(){
-    this.boardService.getAllBoards(this.id).subscribe( (boards: Board[]) => {
+    this.getAllBoards(this.id);
 
-      this.boards = boards;
+  }
+
+  ngDoCheck(){
+
+  }
+
+  getAllBoards(id: number){
+    this.boardService.getAllBoards(id).subscribe( (boards: Board[]) => {
 
       this.boardsToNavbar(boards);
-
-
     });
+
   }
 
   boardsToNavbar(boards: Board[]){
 
-    boards.forEach((board: Board) => {
 
-      this.items[2].children?.push(
+      boards.forEach((board: Board) => {
 
-        {title: `${board.boardName}`,
-         link:`board/${board.id}`,
-         icon: 'arrow-right-outline'
+        this.items[2].children?.push({
+          title: `${board.boardName}`,
+          link:`board/${board.id}`,
+          icon: 'arrow-right-outline'
         });
-    });
+      });
+
+
   }
 
   onClickTheme(){
@@ -89,11 +97,13 @@ export class NavigationComponent {
 
   onMouseEnter(sidebar: NbSidebarComponent) {
     sidebar.expand();
+
   }
 
   onMouseOut(sidebar: NbSidebarComponent) {
     sidebar.compact();
     this.expanded = false;
+
 }
 
 }

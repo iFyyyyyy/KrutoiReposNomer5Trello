@@ -37,7 +37,7 @@
           class="board-scrollbar"
           cdkDropList
           [cdkDropListData]="boards"
-          cdkDropListOrientation="horizontal"
+
           (cdkDropListDropped)="drop($event)">
       <div class="board-wrapper"  *ngFor="let board of boards; let i = index" cdkDrag
       data-drag-scroll-enabled="true">

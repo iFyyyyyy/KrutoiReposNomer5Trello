@@ -4,6 +4,7 @@ import { NB_DIALOG_CONFIG, NbDialogRef, NbDialogService } from '@nebular/theme';
 
 import { HomePageComponent } from '../../home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-update-board-wrapper',
@@ -15,27 +16,28 @@ export class UpdateBoardWrapperComponent implements OnInit {
 
   @Input()updatingBoard!: Board;
 
-
+  updatingBoardWrapper: Board;
 
   constructor(private dialogRef: NbDialogRef<HomePageComponent>){
-      console.log(this.updatingBoard)
+      this.updatingBoardWrapper = this.updatingBoard;
     }
 
   onClickChange(){
-    this.updatingBoard.isPrivate = !this.updatingBoard.isPrivate;
-    console.log(this.updatingBoard.isPrivate);
+    this.updatingBoardWrapper.isPrivate = !this.updatingBoardWrapper.isPrivate;
+    //console.log(this.updatingBoardWrapper.isPrivate);
   }
 
    onFormSubmit(){
-    this.dialogRef.close(this.updatingBoard);
+    this.dialogRef.close(this.updatingBoardWrapper);
    }
 
     ngOnInit(): void {
-      console.log(this.updatingBoard)
+      // this.updatingBoardWrapper = this.updatingBoard;
+      // console.log(this.updatingBoardWrapper);
     }
 
     onFormCancel(){
-      this.dialogRef.close();
+      this.dialogRef.close(this.updatingBoard);
      }
 
 

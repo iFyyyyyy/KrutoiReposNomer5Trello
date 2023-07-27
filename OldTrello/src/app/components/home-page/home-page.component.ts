@@ -16,6 +16,7 @@ import { BoardServiceService } from 'src/app/service/board-service.service';
 import { CreateBoardWrapperComponent } from '../wrappers/create-board-wrapper/create-board-wrapper.component';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { UpdateBoardWrapperComponent } from '../wrappers/update-board-wrapper/update-board-wrapper.component';
+import { DeleteWrapperComponent } from '../wrappers/delete-wrapper/delete-wrapper.component';
 //import { DialogEditWrapperComponent } from '../wrappers/dialog-edit-wrapper/dialog-edit-wrapper.component';
 
 @Component({
@@ -109,28 +110,43 @@ export class HomePageComponent {
         context: {updatingBoard: board},
       });
       dialogUpdatingBoard.onClose.subscribe(board => {
-        if(board != null) {
+
           this.boardService.updateBoard(board).subscribe(k=> {
             this.getAllBoards(this.userId);
           });
         }
+      );
+    }
+
+    // updateBoardPosition(board: Board, newPosition: number){
+    //   board.boardPosition = newPosition;
+    //   this.boardService.updateBoard(board).subscribe(k => {
+    //     this.getAllBoards(this.userId);
+    //   })
+
+    // }
+
+
+    deleteBoard(board: Board) {
+      const dialogUpdatingBoard = this.dialog.open(DeleteWrapperComponent, {
+        closeOnBackdropClick: true,
+        context: {deletingObject: board},
+      });
+      dialogUpdatingBoard.onClose.subscribe(result => {
+        if(result == true) {
+          this.boardService.deleteBoard(board).subscribe(k=> {
+            this.getAllBoards(this.userId);
+        });
+        }
       });
     }
 
-    updateBoardPosition(board: Board, newPosition: number){
-      board.boardPosition = newPosition;
-      this.boardService.updateBoard(board).subscribe(k => {
-        this.getAllBoards(this.userId);
-      })
 
-    }
-
-
-    deleteBoard(board: Board){
-      this.boardService.deleteBoard(board).subscribe(k=> {
-        this.getAllBoards(this.userId);
-    });
-  }
+  //   deleteBoard(board: Board){
+  //     this.boardService.deleteBoard(board).subscribe(k=> {
+  //       this.getAllBoards(this.userId);
+  //   });
+  // }
 
     onItemClick(){
       this.menuService.onItemClick().subscribe((data) => {
@@ -168,6 +184,7 @@ export class HomePageComponent {
       drop(event: CdkDragDrop<Board[]>) {
         console.log(event);
         if (event.previousContainer === event.container) {
+          debugger
           moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
           transferArrayItem(

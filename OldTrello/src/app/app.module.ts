@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateBoardWrapperComponent } from './components/wrappers/create-board-wrapper/create-board-wrapper.component';
 import { UpdateBoardWrapperComponent } from './components/wrappers/update-board-wrapper/update-board-wrapper.component';
+import { DeleteWrapperComponent } from './components/wrappers/delete-wrapper/delete-wrapper.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { UpdateBoardWrapperComponent } from './components/wrappers/update-board-
     BoardPageComponent,
     CreateBoardWrapperComponent,
     UpdateBoardWrapperComponent,
+    DeleteWrapperComponent
 
   ],
   imports: [
