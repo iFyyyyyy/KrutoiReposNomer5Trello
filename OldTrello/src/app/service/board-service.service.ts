@@ -37,6 +37,13 @@ export class BoardServiceService {
         return this.http.delete<Board>(`${this.boardsUrl}/board/${board.id}`).pipe();
       }
 
+      // changeBoardPosition(board: Board[]): Observable<Board[]>{
+      //   return this.http.post<Board[]>(`${this.boardsUrl}/swap`, board).pipe();
+      // }
+
+      changeBoardPosition(board: Board, currentIndex: number): Observable<Board[]>{
+        return this.http.post<Board[]>(`${this.boardsUrl}/swap/${currentIndex}`, board).pipe();
+      }
 
 
     // getAllStudents(): Observable<Student[]> {

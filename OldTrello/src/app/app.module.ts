@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateBoardWrapperComponent } from './components/wrappers/create-board-wrapper/create-board-wrapper.component';
 import { UpdateBoardWrapperComponent } from './components/wrappers/update-board-wrapper/update-board-wrapper.component';
 import { DeleteWrapperComponent } from './components/wrappers/delete-wrapper/delete-wrapper.component';
+//import { TestdragdropComponent } from './components/testdragdrop/testdragdrop.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DeleteWrapperComponent } from './components/wrappers/delete-wrapper/del
     BoardPageComponent,
     CreateBoardWrapperComponent,
     UpdateBoardWrapperComponent,
-    DeleteWrapperComponent
+    DeleteWrapperComponent,
+//    TestdragdropComponent
 
   ],
   imports: [

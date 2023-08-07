@@ -1,7 +1,7 @@
 import { style } from '@angular/animations';
 import { AppRoutingModule } from './../../app-routing.module';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ResolveEnd, Router } from '@angular/router';
 import { NbCardComponent, NbMenuItem, NbMenuService, NbDialogModule, NbDialogService } from '@nebular/theme';
 import { Board } from 'src/app/Entities/Board';
 import {
@@ -109,9 +109,10 @@ export class HomePageComponent {
         closeOnBackdropClick: true,
         context: {updatingBoard: board},
       });
-      dialogUpdatingBoard.onClose.subscribe(board => {
+      dialogUpdatingBoard.onClose.subscribe(resultBoard => {
 
-          this.boardService.updateBoard(board).subscribe(k=> {
+
+          this.boardService.updateBoard(resultBoard).subscribe(k=> {
             this.getAllBoards(this.userId);
           });
         }
@@ -182,21 +183,28 @@ export class HomePageComponent {
     }
 
       drop(event: CdkDragDrop<Board[]>) {
-        console.log(event);
-        if (event.previousContainer === event.container) {
-          debugger
-          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        } else {
-          transferArrayItem(
 
-            event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex,
-          );
+        if (event.previousContainer === event.container) {
+
+            if (event.previousIndex != event.currentIndex){
+            //moveItemInArray(event.previousContainer.data, event.previousIndex, event.currentIndex);
+            this.boardService.changeBoardPosition(
+            event.previousContainer.data[event.previousIndex], event.currentIndex).subscribe((response: Board[]) =>{
+              this.boards = response;
+              moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+          })}
+        }
+        // else {
+        //   transferArrayItem(
+
+        //     event.previousContainer.data,
+        //     event.container.data,
+        //     event.previousIndex,
+        //     event.currentIndex,
+        //   );
           //this.updateBoardPosition(event.container.data, event.currentIndex)
 
-        }
+        //}
       };
 
 

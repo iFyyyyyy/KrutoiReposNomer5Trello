@@ -13,5 +13,8 @@ public interface BoardRepository extends CrudRepository<Board, Long> {
     @Query("SELECT b FROM Board b  WHERE b.user.id = :userId ORDER BY b.boardPosition ASC")
     List<Board> getAllBoards(@Param("userId") Long userId);
 
+    @Query("SELECT b FROM Board b  WHERE b.boardPosition = :boardPosition")
+    Board getBoardByPos(@Param("boardPosition") Long boardPosition);
+
 
 }

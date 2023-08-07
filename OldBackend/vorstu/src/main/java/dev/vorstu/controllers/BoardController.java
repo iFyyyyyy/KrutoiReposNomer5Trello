@@ -4,7 +4,7 @@ package dev.vorstu.controllers;
 import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.service.BoardService;
 import dev.vorstu.entities.Board;
-import dev.vorstu.entities.BoardDTO;
+import dev.vorstu.dto.BoardDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -55,6 +55,24 @@ public class BoardController {
     @DeleteMapping("/boards/board/{id}")
     public void deleteBoard(@PathVariable("id") Long boardId) {
          boardService.deleteBoard(boardId);
+    }
+
+//    @GetMapping("/boards/board")
+//    public boolean getAllStudents(
+//            @RequestParam Long previousIndex,
+//            @RequestParam Long currentIndex
+//    ) {
+//        return boardService.changeBoardPosition(previousIndex, currentIndex);
+//    }
+
+//    @PostMapping("/boards/swap")
+//    public boolean boardPositionSwap( @RequestBody List<Board> boards){
+//        return this.boardService.boardPositionSwap(boards);
+//    }
+
+    @PostMapping("/boards/swap/{boardIndex}")
+    public List<BoardDTO> changeBoardPosition(@PathVariable("boardIndex") Long boardIndex, @RequestBody Board board){
+        return this.boardService.boardPositionSwap(board, boardIndex);
     }
 
 

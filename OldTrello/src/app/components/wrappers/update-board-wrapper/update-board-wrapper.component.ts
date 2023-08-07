@@ -19,7 +19,7 @@ export class UpdateBoardWrapperComponent implements OnInit {
   updatingBoardWrapper: Board;
 
   constructor(private dialogRef: NbDialogRef<HomePageComponent>){
-      this.updatingBoardWrapper = this.updatingBoard;
+    this.updatingBoardWrapper =  new Board();
     }
 
   onClickChange(){
@@ -31,9 +31,10 @@ export class UpdateBoardWrapperComponent implements OnInit {
     this.dialogRef.close(this.updatingBoardWrapper);
    }
 
-    ngOnInit(): void {
-      // this.updatingBoardWrapper = this.updatingBoard;
-      // console.log(this.updatingBoardWrapper);
+    ngOnInit() {
+      this.updatingBoardWrapper = this.updatingBoard;
+      console.log('this.updatingBoardWrapper');
+
     }
 
     onFormCancel(){

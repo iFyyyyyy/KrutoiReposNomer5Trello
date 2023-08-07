@@ -3,10 +3,9 @@ package dev.vorstu.service;
 
 //import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.entities.Board;
-import dev.vorstu.entities.BoardDTO;
+import dev.vorstu.dto.BoardDTO;
 import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.repositories.BoardRepository;
-import dev.vorstu.repositories.ColumnRepository;
 import dev.vorstu.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +71,48 @@ public class BoardService {
         }
         boardRepository.deleteById(boardId);
     }
+
+    public List<BoardDTO> boardPositionSwap(Board board, Long boardIndex){
+        List<Board> boards = this.boardRepository.getAllBoards(1L);
+
+        Board removed = boards.remove(Math.toIntExact(board.getBoardPosition()-1));
+        //removed.setBoardPosition(boardIndex+1);
+        boards.add(Math.toIntExact(boardIndex), removed);
+
+        Long counter = 1L;
+        for (Board board1: boards
+             ) {
+
+            board1.setBoardPosition(counter++);
+
+            this.boardRepository.save(board1);
+        }
+
+
+        return this.getAll(1L);
+    }
+
+
+
+
+//    public boolean boardPositionSwap(List<Board> boards){
+//
+//        if(!Objects.equals(boards.get(0).getId(), boards.get(1).getId())) {
+//            Board droppedBoard = this.boardRepository.findById(boards.get(0).getId()).get();
+//            Board secondBoard = this.boardRepository.findById(boards.get(1).getId()).get();
+//
+//            Long tempPosition = droppedBoard.getBoardPosition();
+//            droppedBoard.setBoardPosition(secondBoard.getBoardPosition());
+//            secondBoard.setBoardPosition(tempPosition);
+//
+//            this.boardRepository.save(droppedBoard);
+//            this.boardRepository.save(secondBoard);
+//
+//            return true;
+//        }
+//        else return false;
+//    }
+
 
 
 

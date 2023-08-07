@@ -2,7 +2,7 @@ package dev.vorstu.mappers;
 
 
 import dev.vorstu.entities.Board;
-import dev.vorstu.entities.BoardDTO;
+import dev.vorstu.dto.BoardDTO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
