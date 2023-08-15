@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DeleteWrapperComponent } from './delete-wrapper.component';
+import { DeleteBoardWrapperComponent } from './delete-wrapper.component';
 
 describe('DeleteWrapperComponent', () => {
-  let component: DeleteWrapperComponent;
-  let fixture: ComponentFixture<DeleteWrapperComponent>;
+  let component: DeleteBoardWrapperComponent;
+  let fixture: ComponentFixture<DeleteBoardWrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteWrapperComponent ]
+      declarations: [ DeleteBoardWrapperComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteWrapperComponent);
+    fixture = TestBed.createComponent(DeleteBoardWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

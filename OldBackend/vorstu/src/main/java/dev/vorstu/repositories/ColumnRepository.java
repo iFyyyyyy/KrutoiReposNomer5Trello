@@ -12,7 +12,7 @@ public interface ColumnRepository extends CrudRepository<Column, Long> {
 
     //List<Column> findAllByOrderByIdAsc();
 
-    @Query("SELECT c FROM Column c JOIN FETCH c.tasks t WHERE board_id = :boardId ORDER BY c.columnPosition ASC")
+    @Query("SELECT DISTINCT c FROM Column c LEFT JOIN FETCH c.tasks WHERE board_id = :boardId ORDER BY c.columnPosition ASC")
     List<Column> getColumns(@Param("boardId") Long boardId);
 
     // посмотреть что такое eager и lazy

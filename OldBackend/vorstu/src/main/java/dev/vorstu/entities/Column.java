@@ -38,7 +38,7 @@ public class Column {
 
     //@JsonManagedReference
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "column", fetch =  FetchType.EAGER) //mappedBy почему так, есть ли разница между joincolumn?
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "column", fetch =  FetchType.LAZY) //mappedBy почему так, есть ли разница между joincolumn?
     @OrderBy("taskPosition ASC")
     private List<Task> tasks;
 

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { Board } from 'src/app/Entities/Board';
-import { HomePageComponent } from '../../home-page/home-page.component';
+import { HomePageComponent } from '../../../home-page/home-page.component';
 
 @Component({
   selector: 'app-create-board-wrapper',

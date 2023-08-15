@@ -2,7 +2,7 @@ package dev.vorstu.mappers;
 
 
 import dev.vorstu.entities.Task;
-import dev.vorstu.entities.TaskDTO;
+import dev.vorstu.dto.TaskDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

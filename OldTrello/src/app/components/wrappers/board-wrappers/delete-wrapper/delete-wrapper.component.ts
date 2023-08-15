@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HomePageComponent } from '../../home-page/home-page.component';
+import { HomePageComponent } from 'src/app/components/home-page/home-page.component';
 import { NbDialogRef } from '@nebular/theme';
 import { Board } from 'src/app/Entities/Board';
 import { Column } from 'src/app/Entities/Column';
 import { Task } from 'src/app/Entities/Task';
 
 @Component({
-  selector: 'app-delete-wrapper',
-  templateUrl: './delete-wrapper.component.html',
-  styleUrls: ['./delete-wrapper.component.css']
+  selector: 'app-delete-board-wrapper',
+  templateUrl: './delete-board-wrapper.component.html',
+  styleUrls: ['./delete-board-wrapper.component.css']
 })
-export class DeleteWrapperComponent implements OnInit {
+export class DeleteBoardWrapperComponent implements OnInit {
 
   dialogHeader: string = ``;
   @Input()deletingObject!: Board;

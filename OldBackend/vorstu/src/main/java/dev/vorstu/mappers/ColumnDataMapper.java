@@ -1,15 +1,14 @@
 package dev.vorstu.mappers;
 
 import dev.vorstu.entities.Column;
-import dev.vorstu.entities.ColumnDTO;
+import dev.vorstu.dto.ColumnDTO;
 import dev.vorstu.entities.Task;
-import dev.vorstu.entities.TaskDTO;
+import dev.vorstu.dto.TaskDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
-import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ColumnDataMapper {

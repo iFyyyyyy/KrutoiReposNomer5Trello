@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
 
-    @Query("SELECT t FROM Task t WHERE t.column.board.id = :boardId")
+    @Query("SELECT DISTINCT t FROM Task t WHERE t.column.board.id = :boardId")
     List<Task> getTasksByBoardId(@Param("boardId") Long boardId);
 }

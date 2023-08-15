@@ -1,4 +1,4 @@
-package dev.vorstu.entities;
+package dev.vorstu.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

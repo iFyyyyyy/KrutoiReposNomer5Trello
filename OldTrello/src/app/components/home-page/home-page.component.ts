@@ -13,10 +13,10 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { BoardServiceService } from 'src/app/service/board-service.service';
-import { CreateBoardWrapperComponent } from '../wrappers/create-board-wrapper/create-board-wrapper.component';
+import { CreateBoardWrapperComponent } from '../wrappers/board-wrappers/create-board-wrapper/create-board-wrapper.component';
 import { ArrayDataSource } from '@angular/cdk/collections';
-import { UpdateBoardWrapperComponent } from '../wrappers/update-board-wrapper/update-board-wrapper.component';
-import { DeleteWrapperComponent } from '../wrappers/delete-wrapper/delete-wrapper.component';
+import { UpdateBoardWrapperComponent } from '../wrappers/board-wrappers/update-board-wrapper/update-board-wrapper.component';
+import { DeleteBoardWrapperComponent } from '../wrappers/board-wrappers/delete-wrapper/delete-wrapper.component';
 //import { DialogEditWrapperComponent } from '../wrappers/dialog-edit-wrapper/dialog-edit-wrapper.component';
 
 @Component({
@@ -110,13 +110,12 @@ export class HomePageComponent {
         context: {updatingBoard: board},
       });
       dialogUpdatingBoard.onClose.subscribe(resultBoard => {
-
-
+        if (resultBoard != null){
           this.boardService.updateBoard(resultBoard).subscribe(k=> {
             this.getAllBoards(this.userId);
           });
         }
-      );
+      });
     }
 
     // updateBoardPosition(board: Board, newPosition: number){
@@ -129,7 +128,7 @@ export class HomePageComponent {
 
 
     deleteBoard(board: Board) {
-      const dialogUpdatingBoard = this.dialog.open(DeleteWrapperComponent, {
+      const dialogUpdatingBoard = this.dialog.open(DeleteBoardWrapperComponent, {
         closeOnBackdropClick: true,
         context: {deletingObject: board},
       });

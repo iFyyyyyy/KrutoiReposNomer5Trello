@@ -2,7 +2,7 @@ package dev.vorstu.service;
 
 import dev.vorstu.mappers.TaskDataMapper;
 import dev.vorstu.entities.Task;
-import dev.vorstu.entities.TaskDTO;
+import dev.vorstu.dto.TaskDTO;
 import dev.vorstu.repositories.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

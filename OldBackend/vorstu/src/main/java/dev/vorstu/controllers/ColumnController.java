@@ -3,7 +3,7 @@ package dev.vorstu.controllers;
 
 import dev.vorstu.service.ColumnService;
 
-import dev.vorstu.entities.ColumnDTO;
+import dev.vorstu.dto.ColumnDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

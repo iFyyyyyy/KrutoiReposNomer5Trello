@@ -3,7 +3,7 @@ package dev.vorstu.controllers;
 
 import dev.vorstu.service.TaskService;
 import dev.vorstu.entities.Task;
-import dev.vorstu.entities.TaskDTO;
+import dev.vorstu.dto.TaskDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

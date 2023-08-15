@@ -4,13 +4,16 @@ package dev.vorstu.service;
 //import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.entities.Board;
 import dev.vorstu.dto.BoardDTO;
+import dev.vorstu.entities.Column;
 import dev.vorstu.mappers.BoardDataMapper;
 import dev.vorstu.repositories.BoardRepository;
+import dev.vorstu.repositories.ColumnRepository;
 import dev.vorstu.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -20,6 +23,8 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private ColumnRepository columnRepository;
 
     @Autowired
     private BoardDataMapper boardDataMapper;
@@ -47,10 +52,24 @@ public class BoardService {
         board.setId(null);
         board.setUser(userRepository.findById(userId).get());
         board.setBoardPosition(boardRepository.count());
-        board.setColumns(null);
+        board.setColumns(listOfNewColumns(board));
         return boardRepository.save(board);
 
     }
+
+    List<Column> listOfNewColumns(Board board){
+        ArrayList list = new ArrayList<Column>();
+
+        list.add(new Column(null,"To Do",1L, board,null));
+        list.add(new Column(null,"In Progress",2L, board,null));
+        list.add(new Column(null,"Finished",3L, board,null));
+        return list;
+    }
+
+
+
+
+
 
     public Board updateBoard(Board updatingBoard, Long boardId){
 
