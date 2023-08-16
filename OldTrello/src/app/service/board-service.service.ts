@@ -8,69 +8,42 @@ import { Board } from '../Entities/Board';
 })
 export class BoardServiceService {
 
-    private boardsUrl = '/api/boards';
+  private boardsUrl = '/api/boards';
 
 
-    constructor(
-      private http: HttpClient) { }
+  constructor(private http: HttpClient){}
 
-      getAllBoards(id: number): Observable<Board[]> {
-        return this.http.get<Board[]>(`${this.boardsUrl}/${id}`).pipe();
-      }
+  getAllBoards(id: number): Observable<Board[]> {
+    return this.http.get<Board[]>(`${this.boardsUrl}/${id}`).pipe();
+  }
 
-      getBoardById(id: number): Observable<Board> {
-        return this.http.get<Board>(`${this.boardsUrl}/board/${id}`).pipe();
-      }
+  getBoardById(id: number): Observable<Board> {
+    return this.http.get<Board>(`${this.boardsUrl}/board/${id}`).pipe();
+  }
 
-      addNewBoard(board: Board, userId: number): Observable<Board> {
-        console.log("adding new board: " + board.boardName + " To userId: "+ userId)
-        return this.http.post<Board>(`${this.boardsUrl}?userId=${userId}`, board).pipe();
-      }
+  addNewBoard(board: Board, userId: number): Observable<Board> {
+    console.log("adding new board: " + board.boardName + " To userId: "+ userId)
+    return this.http.post<Board>(`${this.boardsUrl}?userId=${userId}`, board).pipe();
+  }
 
-      updateBoard(board: Board): Observable<Board> {
-        console.log("updating board: " + board.boardName)
-        return this.http.put<Board>(`${this.boardsUrl}/board/${board.id}`, board).pipe();
-      }
+  updateBoard(board: Board): Observable<Board> {
+    console.log("updating board: " + board.boardName)
+    return this.http.put<Board>(`${this.boardsUrl}/board/${board.id}`, board).pipe();
+  }
 
-      deleteBoard(board: Board): Observable<Board> {
-        console.log("updating board: " + board.boardName)
-        return this.http.delete<Board>(`${this.boardsUrl}/board/${board.id}`).pipe();
-      }
+  deleteBoard(board: Board): Observable<Board> {
+    console.log("updating board: " + board.boardName)
+    return this.http.delete<Board>(`${this.boardsUrl}/board/${board.id}`).pipe();
+  }
 
-      // changeBoardPosition(board: Board[]): Observable<Board[]>{
-      //   return this.http.post<Board[]>(`${this.boardsUrl}/swap`, board).pipe();
-      // }
+  // changeBoardPosition(board: Board[]): Observable<Board[]>{
+  //   return this.http.post<Board[]>(`${this.boardsUrl}/swap`, board).pipe();
+  // }
 
-      changeBoardPosition(board: Board, currentIndex: number): Observable<Board[]>{
-        return this.http.post<Board[]>(`${this.boardsUrl}/swap/${currentIndex}`, board).pipe();
-      }
+  changeBoardPosition(board: Board, currentIndex: number): Observable<Board[]>{
+  return this.http.post<Board[]>(`${this.boardsUrl}/swap/${currentIndex}`, board).pipe();
+  }
 
-
-    // getAllStudents(): Observable<Student[]> {
-    //   return this.http.get<Student[]>(this.studentsUrl
-    //     );
-    // }
-
-    // getUserInfo(username: string): Observable<Student>{
-    //   return this.http.post<Student>(`${this.studentsUrl}/userInfo`, username).pipe();
-    // }
-
-    // getStudents(pageIndex: number, pageSize: number) {
-    //     return this.http.get<any>(`${this.studentsUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`);
-    //   }
-
-    // addNewStudent(student: Student): Observable<Student> {
-    //   console.log('addNewStudent ' + student.fio + " " + student.group);
-    //   return this.http.post<Student>(this.studentsUrl, student).pipe();
-    // }
-
-
-
-
-    // менять в angular.json
-    // "options": {
-    //   "browserTarget": "firstApp:build",
-    //   "proxyConfig": "src/proxy.conf.json"},
   }
 
 

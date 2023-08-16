@@ -1,1 +1,36 @@
-<p>create-task-wrapper works!</p>
+<div class="dialog-wrapper">
+  <nb-card class="card-box">
+
+<h1 id="title" class="title">Create new task</h1>
+
+<form #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-name">Task Name:</label>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="newTask.taskName"
+           name="taskName"
+
+           placeholder="Task Name">
+  </div>
+
+  <div class="form-control-group">
+    <label class="label" for="input-name">Task Description:</label>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="newTask.taskDescription"
+           name="taskDescription"
+
+           placeholder="Task Description">
+  </div>
+
+  <div class="form-control-group">
+    <button class="button" nbButton fullWidth status="info" (click)="onFormSubmit()" > Create </button>
+    <button nbButton fullWidth status="danger" (click)="onFormCancel()" > Cancel </button>
+  </div>
+
+</form>
+</nb-card>
+</div>
+

@@ -68,18 +68,17 @@ export class HomePageComponent {
 
 
 
-    ngOnInit(){
-      this.getAllBoards(this.userId);
-    }
+  ngOnInit(){
+    this.getAllBoards(this.userId);
+  }
 
 
-    getAllBoards(userId: number){
-      this.boardService.getAllBoards(userId).subscribe((boards: Board[]) => {
-        console.log(boards);
-        this.boards =  boards;
-      })
-    }
-
+  getAllBoards(userId: number){
+    this.boardService.getAllBoards(userId).subscribe((boards: Board[]) => {
+      console.log(boards);
+      this.boards =  boards;
+    })
+  }
 
     // getSelectedItem() {
     //   this.menuService.getSelectedItem('menu')
@@ -89,34 +88,33 @@ export class HomePageComponent {
     //     });
     // }
 
+  addNewBoard() {
+    const dialogAddingNewBoard = this.dialog.open(CreateBoardWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {data: null},
+    });
+    dialogAddingNewBoard.onClose.subscribe(board => {
+      if(board != null) {
+        this.boardService.addNewBoard(board, this.userId).subscribe(k=> {
+          this.getAllBoards(this.userId);
+        });
+      }
+    });
+  }
 
-    addNewBoard() {
-      const dialogAddingNewBoard = this.dialog.open(CreateBoardWrapperComponent, {
-        closeOnBackdropClick: true,
-        context: {data: null},
-      });
-      dialogAddingNewBoard.onClose.subscribe(board => {
-        if(board != null) {
-          this.boardService.addNewBoard(board, this.userId).subscribe(k=> {
-            this.getAllBoards(this.userId);
-          });
-        }
-      });
-    }
-
-    updateBoard(board: Board) {
-      const dialogUpdatingBoard = this.dialog.open(UpdateBoardWrapperComponent, {
-        closeOnBackdropClick: true,
-        context: {updatingBoard: board},
-      });
-      dialogUpdatingBoard.onClose.subscribe(resultBoard => {
-        if (resultBoard != null){
-          this.boardService.updateBoard(resultBoard).subscribe(k=> {
-            this.getAllBoards(this.userId);
-          });
-        }
-      });
-    }
+  updateBoard(board: Board) {
+    const dialogUpdatingBoard = this.dialog.open(UpdateBoardWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {updatingBoard: board},
+    });
+    dialogUpdatingBoard.onClose.subscribe(resultBoard => {
+      if (resultBoard != null){
+        this.boardService.updateBoard(resultBoard).subscribe(k=> {
+          this.getAllBoards(this.userId);
+        });
+      }
+    });
+  }
 
     // updateBoardPosition(board: Board, newPosition: number){
     //   board.boardPosition = newPosition;
@@ -127,19 +125,19 @@ export class HomePageComponent {
     // }
 
 
-    deleteBoard(board: Board) {
-      const dialogUpdatingBoard = this.dialog.open(DeleteBoardWrapperComponent, {
-        closeOnBackdropClick: true,
-        context: {deletingObject: board},
-      });
-      dialogUpdatingBoard.onClose.subscribe(result => {
-        if(result == true) {
-          this.boardService.deleteBoard(board).subscribe(k=> {
-            this.getAllBoards(this.userId);
+  deleteBoard(board: Board) {
+    const dialogUpdatingBoard = this.dialog.open(DeleteBoardWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {deletingObject: board},
+    });
+    dialogUpdatingBoard.onClose.subscribe(result => {
+      if(result == true) {
+        this.boardService.deleteBoard(board).subscribe(k=> {
+          this.getAllBoards(this.userId);
         });
-        }
-      });
-    }
+      }
+    });
+  }
 
 
   //   deleteBoard(board: Board){
@@ -148,19 +146,16 @@ export class HomePageComponent {
   //   });
   // }
 
-    onItemClick(){
-      this.menuService.onItemClick().subscribe((data) => {
-        if (data.item.link === undefined) {
-          const item = data.item as any;
-          item.click();
-        }
-      });
+  onItemClick(){
+    this.menuService.onItemClick().subscribe((data) => {
+      if (data.item.link === undefined) {
+        const item = data.item as any;
+        item.click();
+      }
+    });
   }
 
-
-
-
-     applyFilter(event: Event){};
+  applyFilter(event: Event){};
     // applyFilter(event: Event) {
     //   const filterValue = (event.target as HTMLInputElement).value;
     //   this.board.boardName.filter = filterValue.trim().toLowerCase();
@@ -168,31 +163,29 @@ export class HomePageComponent {
     // }
 
 
-    newFunction(id: number){
-      this.router.navigate(["board"]);
-    };
+  newFunction(id: number){
+    this.router.navigate(["board"]);
+  };
 
-    onMouseEnter(card: NbCardComponent) {
-      card.accent = "info"; //= "20px" ;
+  onMouseEnter(card: NbCardComponent) {
+    card.accent = "info"; //= "20px" ;
+  }
+
+  onMouseOut(card: NbCardComponent) {
+    card.accent = "basic";
+    //card.style.marginTop = "0px" ;
+  }
+
+  drop(event: CdkDragDrop<Board[]>) {
+    if (event.previousContainer === event.container) {
+      if (event.previousIndex != event.currentIndex){
+        //moveItemInArray(event.previousContainer.data, event.previousIndex, event.currentIndex);
+        this.boardService.changeBoardPosition(event.previousContainer.data[event.previousIndex], event.currentIndex).subscribe((response: Board[]) => {
+          this.boards = response;
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        })
+      }
     }
-
-    onMouseOut(card: NbCardComponent) {
-      card.accent = "basic";
-      //card.style.marginTop = "0px" ;
-    }
-
-      drop(event: CdkDragDrop<Board[]>) {
-
-        if (event.previousContainer === event.container) {
-
-            if (event.previousIndex != event.currentIndex){
-            //moveItemInArray(event.previousContainer.data, event.previousIndex, event.currentIndex);
-            this.boardService.changeBoardPosition(
-            event.previousContainer.data[event.previousIndex], event.currentIndex).subscribe((response: Board[]) =>{
-              this.boards = response;
-              moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-          })}
-        }
         // else {
         //   transferArrayItem(
 
@@ -204,7 +197,7 @@ export class HomePageComponent {
           //this.updateBoardPosition(event.container.data, event.currentIndex)
 
         //}
-      };
+  };
 
 
 }

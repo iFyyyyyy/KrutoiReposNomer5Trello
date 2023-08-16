@@ -16,5 +16,8 @@ public interface BoardRepository extends CrudRepository<Board, Long> {
     @Query("SELECT b FROM Board b  WHERE b.boardPosition = :boardPosition")
     Board getBoardByPos(@Param("boardPosition") Long boardPosition);
 
+    @Query("SELECT DISTINCT COUNT (*) FROM Board b WHERE user_id = :userId")
+    Long getBoardCount(@Param("userId") Long userId);
+
 
 }

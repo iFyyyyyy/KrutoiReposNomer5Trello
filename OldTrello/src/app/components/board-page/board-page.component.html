@@ -16,9 +16,9 @@
       </nb-select>
 
 
-        <button nbButton ghost size="large" class="menu-options-button" [nbContextMenu]="menuOptions" nbContextMenuTrigger="hover">
-          <nb-icon icon="menu-2-outline"></nb-icon>
-        </button>
+      <nb-actions size="medium">
+        <nb-action icon="plus-square-outline" (click)="addNewColumn()">add new Column</nb-action>
+      </nb-actions>
 
     </div>
   </span>
@@ -26,7 +26,7 @@
 
 
 <div class="column-canvas" cdkDropList [cdkDropListData]="columns" cdkDropListOrientation="horizontal"
-(cdkDropListDropped)="drop($event)">
+(cdkDropListDropped)="dropColumn($event)">
   <div id="board-page"  class="column-scrollbar" cdkDropListGroup>
     <div class="column-wrapper" *ngFor="let column of columns" cdkDrag data-drag-scroll-enabled="true">
       <div class="column-card-placeholder" *cdkDragPlaceholder cdkDragPlaceholderOrientation="horizontal"></div>
@@ -36,13 +36,17 @@
         <nb-card-header class="column-card-header">
             <span class="column-card-cardname">{{column.columnName}}</span>
             <div class="column-card-extras">
-              <button nbButton ghost status="info" [nbContextMenu]="columnOptions" nbContextMenuTrigger="click">
-                <nb-icon icon="more-horizontal-outline"></nb-icon>
+              <button nbButton ghost status="info" (click)="updateColumn(column)">
+                <nb-icon icon="edit-2-outline"></nb-icon>
+              </button>
+
+              <button nbButton ghost status="info" (click)="deleteColumn(column)">
+                <nb-icon icon="trash-2-outline"></nb-icon>
               </button>
             </div>
         </nb-card-header>
 
-        <nb-card-body class="tasks-list" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="drop($event)">
+        <nb-card-body class="tasks-list" cdkDropList [cdkDropListData]="column.tasks" (cdkDropListDropped)="dropTask($event, column.id)">
             <div class="task-card-wrapper" *ngFor="let task of column.tasks" cdkDrag>
               <div class="task-card-placeholder" *cdkDragPlaceholder></div>
 
@@ -50,8 +54,12 @@
                 <nb-card-header class="task-card-header">
                   <span class="task-card-cardname">{{task.taskName}}</span>
                   <div class="task-card-extras">
-                    <button nbButton ghost status="info" [nbContextMenu]="taskOptions" nbContextMenuTrigger="click">
-                      <nb-icon icon="more-horizontal-outline"></nb-icon>
+                    <button nbButton ghost status="info" (click)="updateTask(task)">
+                      <nb-icon icon="edit-2-outline"></nb-icon>
+                    </button>
+
+                    <button nbButton ghost status="info" (click)="deleteTask(task)">
+                      <nb-icon icon="trash-2-outline"></nb-icon>
                     </button>
                   </div>
                 </nb-card-header>
@@ -66,10 +74,9 @@
         <nb-card-footer class="footer-card">
           <span class="footer-card-cardname">Add New Task </span>
           <div class="footer-card-extras">
-            <button nbButton ghost status="info">
+            <button nbButton ghost status="info" (click)="addNewTask(column.id)">
               <nb-icon icon="plus-outline"></nb-icon>
             </button>
-
           </div>
 
         </nb-card-footer>

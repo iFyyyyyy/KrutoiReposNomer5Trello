@@ -1,1 +1,25 @@
-<p>create-column-wrapper works!</p>
+<div class="dialog-wrapper">
+  <nb-card class="card-box">
+
+<h1 id="title" class="title">Create new Column</h1>
+
+<form #form="ngForm" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-name">Column Name:</label>
+    <input nbInput
+           fullWidth
+           [(ngModel)]="newColumn.columnName"
+           name="columnName"
+
+           placeholder="Column Name">
+  </div>
+
+  <div class="form-control-group">
+    <button nbButton fullWidth status="info" (click)="onFormSubmit()" > Create </button>
+    <button nbButton fullWidth status="danger" (click)="onFormCancel()" > Cancel </button>
+  </div>
+
+</form>
+</nb-card>
+</div>

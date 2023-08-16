@@ -18,10 +18,13 @@ public interface ColumnDataMapper {
     ColumnDataMapper INSTANCE = Mappers.getMapper(ColumnDataMapper.class);
 
     @Mapping(source = "tasks", target = "tasks", qualifiedByName = "TaskToTaskDTO")
+    ColumnDTO columnToColumnDTO(Column column);
+
+    @Mapping(source = "tasks", target = "tasks", qualifiedByName = "TaskToTaskDTO")
     public List<ColumnDTO> ListColumnToListColumnDTO(List<Column> list);
 
     @Named("TaskToTaskDTO")
-    default List<TaskDTO> ColumnToColumnDTO(List<Task> list){
+    default List<TaskDTO> TaskToTaskDTO(List<Task> list){
 
         return taskDataMapper.ListTaskToListTaskDTO(list);
 

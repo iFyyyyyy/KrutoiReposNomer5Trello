@@ -33,10 +33,7 @@ public class BoardService {
     private UserRepository userRepository;
 
     public List<BoardDTO> getAll(Long userId) {
-
-
         List<BoardDTO> listDTO = boardDataMapper.ListBoardToListBoardDTO(boardRepository.getAllBoards(userId));
-
         return listDTO;
     }
 
@@ -48,28 +45,20 @@ public class BoardService {
 
 
     public Board createNewBoard(Board board, Long userId){
-
         board.setId(null);
         board.setUser(userRepository.findById(userId).get());
-        board.setBoardPosition(boardRepository.count());
+        board.setBoardPosition(boardRepository.getBoardCount(userId)+1L);
         board.setColumns(listOfNewColumns(board));
         return boardRepository.save(board);
-
     }
 
     List<Column> listOfNewColumns(Board board){
         ArrayList list = new ArrayList<Column>();
-
         list.add(new Column(null,"To Do",1L, board,null));
         list.add(new Column(null,"In Progress",2L, board,null));
         list.add(new Column(null,"Finished",3L, board,null));
         return list;
     }
-
-
-
-
-
 
     public Board updateBoard(Board updatingBoard, Long boardId){
 
@@ -99,15 +88,10 @@ public class BoardService {
         boards.add(Math.toIntExact(boardIndex), removed);
 
         Long counter = 1L;
-        for (Board board1: boards
-             ) {
-
+        for (Board board1: boards){
             board1.setBoardPosition(counter++);
-
             this.boardRepository.save(board1);
         }
-
-
         return this.getAll(1L);
     }
 

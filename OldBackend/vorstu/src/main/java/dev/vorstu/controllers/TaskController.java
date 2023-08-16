@@ -1,6 +1,8 @@
 package dev.vorstu.controllers;
 
 
+import dev.vorstu.dto.ColumnDTO;
+import dev.vorstu.entities.Column;
 import dev.vorstu.service.TaskService;
 import dev.vorstu.entities.Task;
 import dev.vorstu.dto.TaskDTO;
@@ -26,27 +28,33 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/task/{id}")
-    public Task getTask(@PathVariable("id") Long id) {
+    public TaskDTO getTask(@PathVariable("id") Long id) {
 
         return taskService.getTask(id);
     }
 
-//    @PostMapping("/students")
-//    public Student createStudent(@RequestBody Student editingStudent) {
-//
-//        return studentService.create(editingStudent);
-//    }
-//
-//    @PutMapping("/students/{studentId}")
-//    public Student updateStudent(@PathVariable("studentId") long id, @RequestBody Student updatingStudent) {
-//        return studentService.update(id, updatingStudent);
-//    }
-//
-//    @DeleteMapping("/students/{studentId}")
-//    public void deleteStudent(@PathVariable("studentId") long id) {
-//        studentService.delete(id);
-//    }
+    @PostMapping("/tasks")
+    public TaskDTO createNewTask(@RequestParam Long columnId, @RequestBody Task newTask) {
+        return taskService.createNewTask(newTask, columnId);
+    }
 
+    @PutMapping("/tasks/task/{id}")
+    public TaskDTO updateTask(@PathVariable("id") Long taskId,@RequestBody Task updatingTask) {
+        return taskService.updateTask(updatingTask, taskId);
+    }
+
+    @DeleteMapping("/tasks/task/{id}")
+    public void deleteTask(@PathVariable("id") Long taskId) {
+        taskService.deleteTask(taskId);
+    }
+
+    @PostMapping("/tasks/swap/{taskIndex}/{columnId}")
+    public TaskDTO changeColumnPosition(
+            @PathVariable("taskIndex") Long taskIndex,
+            @PathVariable("columnId") Long columnId,
+            @RequestBody Task task){
+        return this.taskService.changeTaskPosition(task, taskIndex, columnId);
+    }
 
 
 }

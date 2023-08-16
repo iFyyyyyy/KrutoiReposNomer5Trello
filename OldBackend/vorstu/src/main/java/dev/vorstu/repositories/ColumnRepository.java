@@ -15,6 +15,9 @@ public interface ColumnRepository extends CrudRepository<Column, Long> {
     @Query("SELECT DISTINCT c FROM Column c LEFT JOIN FETCH c.tasks WHERE board_id = :boardId ORDER BY c.columnPosition ASC")
     List<Column> getColumns(@Param("boardId") Long boardId);
 
+    @Query("SELECT DISTINCT COUNT (*) FROM Column c WHERE board_id = :boardId")
+    Long getColumnsCount(@Param("boardId") Long boardId);
+
     // посмотреть что такое eager и lazy
 }
 

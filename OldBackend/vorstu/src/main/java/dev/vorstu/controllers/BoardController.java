@@ -57,21 +57,9 @@ public class BoardController {
          boardService.deleteBoard(boardId);
     }
 
-//    @GetMapping("/boards/board")
-//    public boolean getAllStudents(
-//            @RequestParam Long previousIndex,
-//            @RequestParam Long currentIndex
-//    ) {
-//        return boardService.changeBoardPosition(previousIndex, currentIndex);
-//    }
-
-//    @PostMapping("/boards/swap")
-//    public boolean boardPositionSwap( @RequestBody List<Board> boards){
-//        return this.boardService.boardPositionSwap(boards);
-//    }
-
     @PostMapping("/boards/swap/{boardIndex}")
     public List<BoardDTO> changeBoardPosition(@PathVariable("boardIndex") Long boardIndex, @RequestBody Board board){
+
         return this.boardService.boardPositionSwap(board, boardIndex);
     }
 

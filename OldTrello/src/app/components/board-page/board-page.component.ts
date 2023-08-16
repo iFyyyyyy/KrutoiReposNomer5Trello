@@ -1,9 +1,8 @@
 import { BoardServiceService } from 'src/app/service/board-service.service';
-
 import { Column } from '../../Entities/Column';
 import { Task} from '../../Entities/Task';
 import { Component } from '@angular/core';
-import { NbCardComponent, NbMenuItem } from '@nebular/theme';
+import { NbCardComponent, NbDialogService, NbMenuItem } from '@nebular/theme';
 import {
   CdkDragDrop,
   CdkDragPlaceholder,
@@ -17,8 +16,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ColumnServiceService } from 'src/app/service/column-service.service';
 import { TaskServiceService } from 'src/app/service/task-service.service';
 import { Board } from 'src/app/Entities/Board';
-
-
+import { CreateColumnWrapperComponent } from '../wrappers/column-wrappers/create-column-wrapper/create-column-wrapper.component';
+import { UpdateColumnWrapperComponent } from '../wrappers/column-wrappers/update-column-wrapper/update-column-wrapper.component';
+import { DeleteColumnWrapperComponent } from '../wrappers/column-wrappers/delete-column-wrapper/delete-column-wrapper.component';
+import { CreateTaskWrapperComponent } from '../wrappers/task-wrappers/create-task-wrapper/create-task-wrapper.component';
+import { UpdateTaskWrapperComponent } from '../wrappers/task-wrappers/update-task-wrapper/update-task-wrapper.component';
+import { DeleteTaskWrapperComponent } from '../wrappers/task-wrappers/delete-task-wrapper/delete-task-wrapper.component';
 
 @Component({
   selector: 'app-board-page',
@@ -31,62 +34,21 @@ export class BoardPageComponent {
   id: number = 0;
   private sub: any;
   selectedItem = '';
-
-  // todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep', 'SUCK VERY BIG PENIS'];
-  // done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   columns: Column[];
   tasks: Task[];
   board: Board;
 
-  constructor(private route: ActivatedRoute, private columnService: ColumnServiceService,
-    private taskService: TaskServiceService, private boardService: BoardServiceService){
+  constructor(
+    private route: ActivatedRoute,
+    private columnService: ColumnServiceService,
+    private taskService: TaskServiceService,
+    private boardService: BoardServiceService,
+    public dialog: NbDialogService,
+    ){
     this.columns = [];
     this.tasks = [];
     this.board = new Board();
-
-  }
-
-  menuOptions: NbMenuItem[] = [
-    {
-      title: 'Create New Column',
-      icon: 'plus-square-outline',
-    },
-
-  ];
-
-  cardOptions: NbMenuItem[] = [
-    {
-      title: 'Home',
-      icon: 'home-outline',
-      link: 'home',
-    },
-  ];
-
-  columnOptions: NbMenuItem[] = [
-    {
-      title: 'Edit Column',
-      icon: 'edit-outline',
-    },
-    {
-      title: 'Delete Column',
-      icon: 'trash-2-outline',
-     // link: 'home',
-    },
-  ];
-
-  taskOptions: NbMenuItem[] = [
-    {
-      title: 'Edit Task',
-      icon: 'edit-outline',
-    },
-    {
-      title: 'Delete Task',
-      icon: 'trash-2-outline',
-     // link: 'home',
-    },
-  ];
-
-
+    }
 
   applyFilter(event: Event){};
   // applyFilter(event: Event) {
@@ -104,20 +66,12 @@ export class BoardPageComponent {
     return result;
   }
 
-
-
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
        this.id = +params['id']; // (+) converts string 'id' to a number
-
        this.getColumnsByBoardId(this.id);
        this.getBoardById(this.id);
        //this.getTasksByBoardId(this.id);
-
-
-
-       // In a real app: dispatch action to load the details here.
-
     });
   }
 
@@ -132,7 +86,6 @@ export class BoardPageComponent {
     this.sub.unsubscribe();
   }
 
-
   getColumnsByBoardId(id: number){
     this.columnService.getColumnsByBoardId(id).subscribe((columns: Column[]) => {
 
@@ -144,47 +97,133 @@ export class BoardPageComponent {
   }
 
 
-  // getTasksByBoardId(id: number){
-  //   let tasks: Task[] = [];
-  //   this.taskService.getTasksByBoardId(id).subscribe((tasks: Task[]) => {
-
-  //     this.tasks = tasks;
-
-  // })
-  // }
-
-
-  getTasksByBoardId(id: number){
-    this.taskService.getTasksByBoardId(id).subscribe((tasks: Task[]) => {
-
-      this.tasks = tasks;
-
-  })
-
+  addNewColumn() {
+    const dialogAddingNewBoard = this.dialog.open(CreateColumnWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {data: null},
+    });
+    dialogAddingNewBoard.onClose.subscribe(column => {
+      if(column != null) {
+        this.columnService.addNewColumn(column, this.board.id).subscribe(k=> {
+          this.getColumnsByBoardId(this.board.id);
+        });
+      }
+    });
   }
 
+  updateColumn(column: Column) {
+    const dialogUpdatingBoard = this.dialog.open(UpdateColumnWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {updatingColumn: column},
+    });
+    dialogUpdatingBoard.onClose.subscribe(column => {
+      if (column != null){
+        this.columnService.updateColumn(column).subscribe(k=> {
+          this.getColumnsByBoardId(this.board.id);
+        });
+      }
+    });
+  }
 
+  deleteColumn(column: Column) {
+    const dialogUpdatingBoard = this.dialog.open(DeleteColumnWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {deletingColumn: column},
+    });
+    dialogUpdatingBoard.onClose.subscribe(result => {
+      if(result == true) {
+        this.columnService.updateColumn(column).subscribe(k=> {
+          this.getColumnsByBoardId(this.board.id);
+        });
+      }
+    });
+  }
 
-  drop(event: CdkDragDrop<any[]>) {
+  addNewTask(columnId: number) {
+    const dialogAddingNewBoard = this.dialog.open(CreateTaskWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {data: null},
+    });
+    dialogAddingNewBoard.onClose.subscribe((task: Task) => {
+      if(task != null) {
+        this.taskService.addNewTask(task, columnId).subscribe(k=> {
+          this.getColumnsByBoardId(this.board.id);
+        });
+      }
+    });
+  }
+
+  updateTask(task: Task) {
+    const dialogUpdatingBoard = this.dialog.open(UpdateTaskWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {updatingTask: task},
+    });
+    dialogUpdatingBoard.onClose.subscribe(task => {
+      if (task != null){
+        this.taskService.updateTask(task).subscribe(k=> {
+          this.getColumnsByBoardId(this.board.id);
+        });
+      }
+    });
+  }
+
+  deleteTask(task: Task) {
+    const dialogUpdatingBoard = this.dialog.open(DeleteTaskWrapperComponent, {
+      closeOnBackdropClick: true,
+      context: {deletingTask: task},
+    });
+    dialogUpdatingBoard.onClose.subscribe(result => {
+      if (result != null){
+        this.taskService.deleteTask(task).subscribe(k=> {
+          this.getColumnsByBoardId(this.board.id);
+        });
+      }
+    });
+  }
+
+  dropColumn(event: CdkDragDrop<Column[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      if (event.previousIndex != event.currentIndex){
+        //moveItemInArray(event.previousContainer.data, event.previousIndex, event.currentIndex);
+        this.columnService.changeColumnPosition(event.previousContainer.data[event.previousIndex], event.currentIndex, this.board.id).subscribe((response: Column[]) => {
+          this.columns = response;
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        })
+      }
     }
+  };
 
-
-  }
-
-
-
-
-
-
+  dropTask(event: CdkDragDrop<Task[]>, currentColumnId: number) {
+    if (event.previousContainer === event.container) {
+      if (event.previousIndex != event.currentIndex){
+        // commit 215
+        moveItemInArray(event.previousContainer.data, event.previousIndex, event.currentIndex);
+        this.taskService.changeTaskPosition(
+          event.previousContainer.data[event.previousIndex],
+          event.currentIndex
+          ).subscribe((response: Column[]) => {
+          this.columns = response;
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        })
+      }
+    }
+    else {
+      this.taskService.changeTaskPositionAndColumn(
+        event.previousContainer.data[event.previousIndex],
+        event.currentIndex,
+        currentColumnId,
+        ).subscribe((response: Column[]) => {
+          this.columns = response;
+        });
+      // console.log(event);
+      // transferArrayItem(
+      //   event.previousContainer.data,
+      //   event.container.data,
+      //   event.previousIndex,
+      //   event.currentIndex,
+      //     );
+    }
+  };
 
   onMouseEnter(card: NbCardComponent) {
     card.accent = "info"; //= "20px" ;
@@ -194,6 +233,6 @@ export class BoardPageComponent {
   onMouseOut(card: NbCardComponent) {
     card.accent = "basic";
     //card.status = "basic";
-}
+  }
 
 }
