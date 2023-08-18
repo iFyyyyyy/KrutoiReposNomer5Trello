@@ -73,7 +73,7 @@ public class BoardService {
         Board board = boardRepository.findById(boardId).get();
         board.setBoardName(updatingBoard.getBoardName());
         board.setBoardDescription(updatingBoard.getBoardDescription());
-        board.setIsPrivate(updatingBoard.isIsPrivate());
+        board.setPrivate(updatingBoard.isPrivate());
 
         return boardRepository.save(board);
     }

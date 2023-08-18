@@ -1,0 +1,14 @@
+spring:
+  liquibase:
+    enabled: true
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/Trello
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver

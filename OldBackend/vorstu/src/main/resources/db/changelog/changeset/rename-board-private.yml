@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: rename-board-private
+      author: iF
+      changes:
+        - renameColumn:
+            tableName: boards
+            newColumnName: isPrivate
+            oldColumnName: Private
