@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthorizationService } from './../../../service/authorization.service';
 import { Component } from '@angular/core';
+import { NbThemeService } from '@nebular/theme';
 
 @Component({
   selector: 'app-logout',
@@ -9,15 +10,17 @@ import { Component } from '@angular/core';
 })
 export class LogoutComponent {
 
-  constructor(private authorizationService: AuthorizationService, private router: Router){}
+  constructor(
+    private authorizationService: AuthorizationService,
+     private router: Router,
+     private themeService: NbThemeService,
+     ){}
 
   ngOnInit(){
     this.authorizationService.logout().subscribe(result => {
-    localStorage.removeItem("Theme");
-    localStorage.removeItem("UserId");
-    localStorage.removeItem("Username");
-    localStorage.removeItem("isLoggedIn");
-    this.router.navigate(['/login']);
+      localStorage.clear();
+      this.router.navigate(['/login']);
+      //this.themeService.changeTheme('default');
     });
   }
 }

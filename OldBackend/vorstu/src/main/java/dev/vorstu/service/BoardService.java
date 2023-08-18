@@ -2,6 +2,7 @@ package dev.vorstu.service;
 
 
 //import dev.vorstu.mappers.BoardDataMapper;
+import dev.vorstu.dto.UserDTO;
 import dev.vorstu.entities.Board;
 import dev.vorstu.dto.BoardDTO;
 import dev.vorstu.entities.Column;
@@ -11,6 +12,8 @@ import dev.vorstu.repositories.ColumnRepository;
 import dev.vorstu.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,8 +35,9 @@ public class BoardService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<BoardDTO> getAll(Long userId) {
-        List<BoardDTO> listDTO = boardDataMapper.ListBoardToListBoardDTO(boardRepository.getAllBoards(userId));
+    public List<BoardDTO> getAll() {
+        UserDTO auth = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        List<BoardDTO> listDTO = boardDataMapper.ListBoardToListBoardDTO(boardRepository.getAllBoards(auth.getId()));
         return listDTO;
     }
 
@@ -44,10 +48,11 @@ public class BoardService {
 
 
 
-    public Board createNewBoard(Board board, Long userId){
+    public Board createNewBoard(Board board){
+        UserDTO auth = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
         board.setId(null);
-        board.setUser(userRepository.findById(userId).get());
-        board.setBoardPosition(boardRepository.getBoardCount(userId)+1L);
+        board.setUser(userRepository.findById(auth.getId()).get());
+        board.setBoardPosition(boardRepository.getBoardCount(auth.getId())+1L);
         board.setColumns(listOfNewColumns(board));
         return boardRepository.save(board);
     }
@@ -81,6 +86,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> boardPositionSwap(Board board, Long boardIndex){
+        //UserDTO auth = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
         List<Board> boards = boardRepository.getAllBoards(1L);
 
         Board removed = boards.remove(Math.toIntExact(board.getBoardPosition()-1));
@@ -92,7 +98,7 @@ public class BoardService {
             board1.setBoardPosition(counter++);
             this.boardRepository.save(board1);
         }
-        return this.getAll(1L);
+        return this.getAll();
     }
 
 

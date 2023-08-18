@@ -69,12 +69,12 @@ export class HomePageComponent {
 
 
   ngOnInit(){
-    this.getAllBoards(this.userId);
+    this.getAllBoards();
   }
 
 
-  getAllBoards(userId: number){
-    this.boardService.getAllBoards(userId).subscribe((boards: Board[]) => {
+  getAllBoards(){
+    this.boardService.getAllBoards().subscribe((boards: Board[]) => {
       console.log(boards);
       this.boards =  boards;
     })
@@ -95,8 +95,8 @@ export class HomePageComponent {
     });
     dialogAddingNewBoard.onClose.subscribe(board => {
       if(board != null) {
-        this.boardService.addNewBoard(board, this.userId).subscribe(k=> {
-          this.getAllBoards(this.userId);
+        this.boardService.addNewBoard(board).subscribe(k=> {
+          this.getAllBoards();
         });
       }
     });
@@ -110,7 +110,7 @@ export class HomePageComponent {
     dialogUpdatingBoard.onClose.subscribe(resultBoard => {
       if (resultBoard != null){
         this.boardService.updateBoard(resultBoard).subscribe(k=> {
-          this.getAllBoards(this.userId);
+          this.getAllBoards();
         });
       }
     });
@@ -133,7 +133,7 @@ export class HomePageComponent {
     dialogUpdatingBoard.onClose.subscribe(result => {
       if(result == true) {
         this.boardService.deleteBoard(board).subscribe(k=> {
-          this.getAllBoards(this.userId);
+          this.getAllBoards();
         });
       }
     });

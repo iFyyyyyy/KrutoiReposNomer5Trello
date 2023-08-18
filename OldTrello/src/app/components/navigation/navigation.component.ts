@@ -13,8 +13,10 @@ import { Router } from '@angular/router';
 export class NavigationComponent {
   expanded: boolean = false;
 
+  username: string | null = "";
+
   boards: Board[] | null;
-  userId: number | null;
+  userId: number | null = null;
 
   isLight = true;
   isLoggedIn = false;
@@ -26,11 +28,11 @@ export class NavigationComponent {
     ){
     this.boards = [];
     this.themeService.currentTheme;
-    this.userId = this.getUserId();
+
   };
 
 
-  items: NbMenuItem[] = [
+  sidebarItems: NbMenuItem[] = [
     {
       title: 'Home',
       icon: 'home-outline',
@@ -58,75 +60,88 @@ export class NavigationComponent {
     {
       title: 'Logout',
       icon: 'log-out-outline',
+      link: 'logout',
+
     },
   ];
 
-
-  ngOnInit(){
-    this.getAllBoards(this.userId);
-    this.checkTheme();
+  getUsername(){
+    this.username =  localStorage.getItem('Username');
   }
 
+
+
+
+  ngOnInit(){
+    this.checkLoggedIn();
+    this.getAllBoards();
+    //this.checkTheme();
+    this.getTheme();
+    this.getUsername();
+    this.getUserId();
+  }
+
+  checkLoggedIn(){
+    if(localStorage.getItem('isLoggedIn')){
+    return this.isLoggedIn = true;
+    }
+    else
+    return this.isLoggedIn = false;
+  }
+
+
+  // el hueta
   ngDoCheck(){
     if(localStorage.getItem('isLoggedIn')){
       this.isLoggedIn = true;
     }
-    else this.isLoggedIn = false;
-
-  }
-
-  getAllBoards(id: number | null){
-    if(id != null){
-      this.boardService.getAllBoards(id).subscribe( (boards: Board[]) => {
-        this.boardsToNavbar(boards);
-      });
+    else {
+      this.isLoggedIn = false;
     }
   }
 
+  getAllBoards(){
+      this.boardService.getAllBoards().subscribe( (boards: Board[]) => {
+        this.boardsToNavbar(boards);
+      });
+
+  }
+
   boardsToNavbar(boards: Board[]){
-
-
       boards.forEach((board: Board) => {
 
-        this.items[2].children?.push({
+        this.sidebarItems[2].children?.push({
           title: `${board.boardName}`,
           link:`board/${board.id}`,
           icon: 'arrow-right-outline'
         });
       });
-
-
   }
 
   onClickTheme(){
-      if (!this.isLight){
-        this.themeCheck.changeTheme(this.userId, "LIGHT").subscribe(k => {
-          this.themeService.changeTheme('default');
-        });
-        this.isLight = !this.isLight;
+    this.isLight = !this.isLight;
+    this.themeCheck.changeTheme().subscribe((theme: string) => {
+      this.getTheme();
+    });
+  }
+
+  getTheme(){
+    this.themeCheck.getTheme().subscribe((theme: string) =>{
+      //debugger
+      if (theme == "LIGHT"){
+        this.isLight = true;
+        this.themeService.changeTheme('default');
       }
       else {
-        this.themeCheck.changeTheme(this.userId, "DARK").subscribe(k => {
-          this.themeService.changeTheme('dark');
-        });
-        this.isLight = !this.isLight;
+        this.isLight = false;
+        this.themeService.changeTheme('dark');
       }
-
+    })
   }
 
-  checkTheme(){
-    if(this.userId != null){
-      this.themeCheck.getTheme(this.userId).subscribe((result: String) => {
-        if(result = "LIGHT"){
-          this.themeService.changeTheme('default');
-        }
-        else this.themeService.changeTheme('dark');
-      })
-    };
-  }
 
   getUserId(){
-    return Number(localStorage.getItem("UserId"));
+    this.userId =  Number(localStorage.getItem("UserId"));
   }
 
   onMouseEnter(sidebar: NbSidebarComponent) {
@@ -137,7 +152,6 @@ export class NavigationComponent {
   onMouseOut(sidebar: NbSidebarComponent) {
     sidebar.compact();
     this.expanded = false;
-
-}
+  }
 
 }

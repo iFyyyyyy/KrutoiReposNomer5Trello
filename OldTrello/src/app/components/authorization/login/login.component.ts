@@ -1,6 +1,7 @@
 import { AuthorizationService } from './../../../service/authorization.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NbThemeService } from '@nebular/theme';
 import { User } from 'src/app/Entities/User';
 
 @Component({
@@ -11,13 +12,21 @@ import { User } from 'src/app/Entities/User';
 export class LoginComponent {
   user: User;
 
-  constructor(private authorizationService: AuthorizationService,private router: Router){
+  constructor(
+    private authorizationService: AuthorizationService,
+    private router: Router,
+    private themeService: NbThemeService,
+    ){
     this.user = new User();
     this.user.username = "admin";
     this.user.password = "admin";
   }
 
-  OnInit(){};
+  ngOnInit(){
+    if (localStorage.getItem("isLoggedIn")){
+      this.router.navigate(["home"]);
+    }
+  };
 
   login() {
 
@@ -25,6 +34,7 @@ export class LoginComponent {
         data => {
           if (data){
               this.router.navigate(["home"]);
+
           }
         },
       );

@@ -13,17 +13,17 @@ export class BoardServiceService {
 
   constructor(private http: HttpClient){}
 
-  getAllBoards(id: number): Observable<Board[]> {
-    return this.http.get<Board[]>(`${this.boardsUrl}/${id}`).pipe();
+  getAllBoards(): Observable<Board[]> {
+    return this.http.get<Board[]>(`${this.boardsUrl}/`).pipe();
   }
 
   getBoardById(id: number): Observable<Board> {
     return this.http.get<Board>(`${this.boardsUrl}/board/${id}`).pipe();
   }
 
-  addNewBoard(board: Board, userId: number): Observable<Board> {
-    console.log("adding new board: " + board.boardName + " To userId: "+ userId)
-    return this.http.post<Board>(`${this.boardsUrl}?userId=${userId}`, board).pipe();
+  addNewBoard(board: Board): Observable<Board> {
+    console.log("adding new board: " + board.boardName);
+    return this.http.post<Board>(`${this.boardsUrl}`, board).pipe();
   }
 
   updateBoard(board: Board): Observable<Board> {

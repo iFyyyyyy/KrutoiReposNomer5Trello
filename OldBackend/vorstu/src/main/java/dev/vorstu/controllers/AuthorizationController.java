@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
@@ -24,11 +26,11 @@ public class AuthorizationController {
     @Autowired
     UserService userService;
 
-//    @PostMapping(value = "/checkLogin")
-//    public boolean checkLogin(Principal user) {
-//        UsernamePasswordAuthenticationToken token = ((UsernamePasswordAuthenticationToken) user);
-//        return token.isAuthenticated();
-//    }
+    @GetMapping(value = "/checkLogin")
+    public boolean checkLogin() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.isAuthenticated();
+    }
 
     @PostMapping(value = "/login")
     public Principal Login(Principal user) {

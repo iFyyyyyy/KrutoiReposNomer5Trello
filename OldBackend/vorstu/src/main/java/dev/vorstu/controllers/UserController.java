@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/theme", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j // log.info
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/theme/{id}")
-    public Enum<Theme> getTheme(@PathVariable("id") Long id) {
-        return userService.getTheme(id);
+    @GetMapping("/getTheme/")
+    public Theme getTheme() {
+        return userService.getTheme();
     }
 
-    @PostMapping("/theme/{id}")
-    public String changeTheme(@PathVariable("id") Long id, @RequestBody String theme) {
-        return userService.changeTheme(id, theme);
+    @GetMapping("/changeTheme/")
+    public Theme changeTheme() {
+        return userService.changeTheme();
     }
 }

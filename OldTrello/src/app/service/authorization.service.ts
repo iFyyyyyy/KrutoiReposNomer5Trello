@@ -23,9 +23,9 @@ export class AuthorizationService {
         map(user => {
           if (user) {
             localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("Theme", JSON.stringify(user.details.theme));
-          localStorage.setItem("UserId", JSON.stringify(user.details.id));
-          localStorage.setItem("Username", JSON.stringify(user.details.username));
+            localStorage.setItem("Theme", user.details.theme);
+            localStorage.setItem("UserId", user.details.id);
+            localStorage.setItem("Username", user.details.username);
         }
         return user;
         })
@@ -36,5 +36,9 @@ export class AuthorizationService {
     let myHeaders = new HttpHeaders().set('content-type','application/json');
     return this.http.post<any>(`${this.loginUrl}/logout`, null,
     {headers: myHeaders}).pipe();
+  }
+
+  checkLogin(){
+    return this.http.get<boolean>(`${this.loginUrl}/checkLogin`).pipe();
   }
 }

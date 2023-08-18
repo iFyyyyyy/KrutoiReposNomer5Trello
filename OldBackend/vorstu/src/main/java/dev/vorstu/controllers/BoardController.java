@@ -24,10 +24,10 @@ public class BoardController {
     @Autowired
     private BoardDataMapper boardDataMapper;
 
-    @GetMapping("/boards/{id}")
-    public List<BoardDTO> getAllBoards(@PathVariable("id") Long userId) {
+    @GetMapping("/boards/")
+    public List<BoardDTO> getAllBoards() {
 
-        return boardService.getAll(userId);
+        return boardService.getAll();
     }
 
     @GetMapping("/boards/board/{id}")
@@ -37,9 +37,9 @@ public class BoardController {
     }
 
     @PostMapping("/boards")
-    public BoardDTO createNewBoard( @RequestParam Long userId,@RequestBody Board newBoard) {
+    public BoardDTO createNewBoard(@RequestBody Board newBoard) {
 
-        Board board = boardService.createNewBoard(newBoard, userId);
+        Board board = boardService.createNewBoard(newBoard);
 
         return boardDataMapper.BoardToBoardDTO(board);
     }

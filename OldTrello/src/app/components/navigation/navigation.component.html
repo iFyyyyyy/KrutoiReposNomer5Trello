@@ -1,27 +1,27 @@
 <nb-layout >
-  <nb-layout-header>
+  <nb-layout-header >
     <span>trelloLogo</span>
     <span class="toolbar-item-spacer"></span>
-    <button style="margin-right: 20px;" nbButton ghost size="large"  class="" (click)="onClickTheme()">
+    <button *ngIf="this.checkLoggedIn()" style="margin-right: 20px;" nbButton ghost size="large"  class="" (click)="onClickTheme()">
       <nb-icon *ngIf="isLight"  icon="toggle-left-outline"></nb-icon>
       <nb-icon *ngIf="!isLight" icon="toggle-right-outline"></nb-icon>
     </button>
 
-    <nb-user *ngIf="isLoggedIn"
+    <nb-user *ngIf="this.checkLoggedIn()"
       id="user"
       size="large"
-      name="Some Username"
+      name="{{username}}"
       badgePosition="bottom right">
     </nb-user>
   </nb-layout-header>
 
-  <nb-sidebar *ngIf="isLoggedIn"
+  <nb-sidebar *ngIf="this.checkLoggedIn()"
     #sidebar
     mode="side"
     state="compacted"
     (mouseenter)="onMouseEnter(sidebar)"
     (mouseleave)="onMouseOut(sidebar)">
-    <nb-menu [items]="items"></nb-menu>
+    <nb-menu [items]="sidebarItems"></nb-menu>
   </nb-sidebar>
 
   <nb-layout-column class="column"  style="padding: 8px;  " class="layout-column">

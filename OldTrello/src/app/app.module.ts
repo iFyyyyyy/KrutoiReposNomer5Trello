@@ -25,7 +25,7 @@ import { DeleteColumnWrapperComponent } from './components/wrappers/column-wrapp
 import { CreateTaskWrapperComponent } from './components/wrappers/task-wrappers/create-task-wrapper/create-task-wrapper.component';
 import { UpdateTaskWrapperComponent } from './components/wrappers/task-wrappers/update-task-wrapper/update-task-wrapper.component';
 import { DeleteTaskWrapperComponent } from './components/wrappers/task-wrappers/delete-task-wrapper/delete-task-wrapper.component';
-import { NbPasswordAuthStrategy, NbAuthModule } from '@nebular/auth';
+//import { NbPasswordAuthStrategy, NbAuthModule } from '@nebular/auth';
 import { LoginComponent } from './components/authorization/login/login.component';
 import { LogoutComponent } from './components/authorization/logout/logout.component';
 import { RegistrationPageComponent } from './components/authorization/registration-page/registration-page.component';
@@ -84,14 +84,14 @@ import { RegistrationPageComponent } from './components/authorization/registrati
     HttpClientModule,
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
-    NbAuthModule.forRoot({
-      strategies: [
-        NbPasswordAuthStrategy.setup({
-          name: 'username',
-        }),
-      ],
-      forms: {},
-    }),
+    // NbAuthModule.forRoot({
+    //   strategies: [
+    //     NbPasswordAuthStrategy.setup({
+    //       name: 'username',
+    //     }),
+    //   ],
+    //   forms: {},
+    // }),
 
   ],
   providers: [NbSidebarService],
