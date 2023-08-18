@@ -33,13 +33,13 @@ public class Initializer {
         //Users
         userRepository.save(new User(
                 1L,
-                "user1",
+                "admin",
 
-                Role.USER,
-                "1234",
+                Role.ADMIN,
+                new Password("admin"),
                 null,
-                //user.SetPassword("1234"),
-                true));
+                true,
+                Theme.DARK));
 
         //Boards
         boardRepository.save(new Board(

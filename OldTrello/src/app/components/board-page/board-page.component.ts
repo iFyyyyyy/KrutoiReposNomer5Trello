@@ -194,35 +194,17 @@ export class BoardPageComponent {
   };
 
   dropTask(event: CdkDragDrop<Task[]>, currentColumnId: number) {
-    if (event.previousContainer === event.container) {
-      if (event.previousIndex != event.currentIndex){
-        // commit 215
-        moveItemInArray(event.previousContainer.data, event.previousIndex, event.currentIndex);
-        this.taskService.changeTaskPosition(
-          event.previousContainer.data[event.previousIndex],
-          event.currentIndex
-          ).subscribe((response: Column[]) => {
-          this.columns = response;
-          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
+      if (event.previousIndex != event.currentIndex || event.container != event.previousContainer){
+          this.taskService.changeTaskPositionAndColumn(
+            event.previousContainer.data[event.previousIndex],
+            event.currentIndex,
+            currentColumnId,
+            ).subscribe((response: Column[]) => {
+              this.columns = response;
+          //moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         })
       }
-    }
-    else {
-      this.taskService.changeTaskPositionAndColumn(
-        event.previousContainer.data[event.previousIndex],
-        event.currentIndex,
-        currentColumnId,
-        ).subscribe((response: Column[]) => {
-          this.columns = response;
-        });
-      // console.log(event);
-      // transferArrayItem(
-      //   event.previousContainer.data,
-      //   event.container.data,
-      //   event.previousIndex,
-      //   event.currentIndex,
-      //     );
-    }
   };
 
   onMouseEnter(card: NbCardComponent) {

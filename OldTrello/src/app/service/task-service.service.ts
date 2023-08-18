@@ -34,9 +34,9 @@ export class TaskServiceService {
       return this.http.delete<Task>(`${this.tasksUrl}/task/${task.id}`).pipe();
     }
 
-    changeTaskPosition(task: Task, currentIndex: number): Observable<Column[]>{
-      return this.http.post<Column[]>(`${this.tasksUrl}/swap/${currentIndex}`, task).pipe();
-    }
+    // changeTaskPosition(task: Task, currentIndex: number): Observable<Column[]>{
+    //   return this.http.post<Column[]>(`${this.tasksUrl}/swap/${currentIndex}`, task).pipe();
+    // }
 
     changeTaskPositionAndColumn(task: Task, currentIndex: number, currentColumnId: number): Observable<Column[]>{
       return this.http.post<Column[]>(`${this.tasksUrl}/swap/${currentIndex}/${currentColumnId}`, task).pipe();

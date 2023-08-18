@@ -1,7 +1,9 @@
 package dev.vorstu.controllers;
 
 
+import dev.vorstu.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
@@ -19,13 +21,22 @@ import java.security.Principal;
 
 public class AuthorizationController {
 
+    @Autowired
+    UserService userService;
+
+//    @PostMapping(value = "/checkLogin")
+//    public boolean checkLogin(Principal user) {
+//        UsernamePasswordAuthenticationToken token = ((UsernamePasswordAuthenticationToken) user);
+//        return token.isAuthenticated();
+//    }
+
     @PostMapping(value = "/login")
     public Principal Login(Principal user) {
         log.info("Login user");
         UsernamePasswordAuthenticationToken token = ((UsernamePasswordAuthenticationToken) user);
         log.info("Hello {} with role {}", token.getName(), token.getAuthorities());
+        token.setDetails(userService.getUserDetails(token.getName()));
         return token;
-
     }
 
     @PostMapping(path = "/logout", consumes = "application/json", produces = "application/json")

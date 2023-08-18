@@ -60,7 +60,7 @@ public class ColumnService {
     }
 
     public List<ColumnDTO> changeColumnPosition(Column column, Long columnIndex, Long boardId){
-        List<Column> columns = this.columnRepository.getColumns(boardId);
+        List<Column> columns = columnRepository.getColumns(boardId);
 
         Column removed = columns.remove(Math.toIntExact(column.getColumnPosition()-1));
         columns.add(Math.toIntExact(columnIndex), removed);

@@ -14,5 +14,8 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
     @Query("SELECT DISTINCT COUNT (*) FROM Task t WHERE column_id = :columnId")
     Long getTasksCount(@Param("columnId") Long columnId);
+
+    @Query("SELECT t FROM Task t WHERE column_id = :columnId")
+    List<Task> getTasksByColumnId(@Param("columnId") Long columnId);
 }
 

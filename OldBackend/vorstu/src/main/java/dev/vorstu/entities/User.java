@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -30,9 +31,11 @@ public class User {
 
     //static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private String password;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "password_id", nullable = false)
+    private Password password;
 
-    //public String SetPassword(String password) {
+//    public String SetPassword(String password) {
 //        return this.password = passwordEncoder.encode(password);
 //    }
 
@@ -40,4 +43,7 @@ public class User {
     private List<Board> Board;
 
     private boolean enable;
+
+    @Enumerated(EnumType.STRING)
+    private Theme theme;
 }

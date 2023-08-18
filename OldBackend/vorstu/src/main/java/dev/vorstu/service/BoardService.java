@@ -81,7 +81,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> boardPositionSwap(Board board, Long boardIndex){
-        List<Board> boards = this.boardRepository.getAllBoards(1L);
+        List<Board> boards = boardRepository.getAllBoards(1L);
 
         Board removed = boards.remove(Math.toIntExact(board.getBoardPosition()-1));
         //removed.setBoardPosition(boardIndex+1);

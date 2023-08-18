@@ -1,34 +1,31 @@
-    <nb-layout >
-      <nb-layout-header>
+<nb-layout >
+  <nb-layout-header>
+    <span>trelloLogo</span>
+    <span class="toolbar-item-spacer"></span>
+    <button style="margin-right: 20px;" nbButton ghost size="large"  class="" (click)="onClickTheme()">
+      <nb-icon *ngIf="isLight"  icon="toggle-left-outline"></nb-icon>
+      <nb-icon *ngIf="!isLight" icon="toggle-right-outline"></nb-icon>
+    </button>
 
-        <span>trelloLogo</span>
-        <span class="toolbar-item-spacer"></span>
-        <button style="margin-right: 20px;" nbButton ghost size="large"  class="" (click)="onClickTheme()">
+    <nb-user *ngIf="isLoggedIn"
+      id="user"
+      size="large"
+      name="Some Username"
+      badgePosition="bottom right">
+    </nb-user>
+  </nb-layout-header>
 
-          <nb-icon *ngIf="isLight"  icon="toggle-left-outline"></nb-icon>
+  <nb-sidebar *ngIf="isLoggedIn"
+    #sidebar
+    mode="side"
+    state="compacted"
+    (mouseenter)="onMouseEnter(sidebar)"
+    (mouseleave)="onMouseOut(sidebar)">
+    <nb-menu [items]="items"></nb-menu>
+  </nb-sidebar>
 
-          <nb-icon *ngIf="!isLight" icon="toggle-right-outline"></nb-icon>
-
-        </button>
-        <nb-user id="user" size="large"
-        name="Some Username"
-        badgePosition="bottom right">
-      </nb-user>
-
-      </nb-layout-header>
-
-
-      <nb-sidebar #sidebar mode="side" state="compacted"
-        (mouseenter)="onMouseEnter(sidebar)"
-        (mouseleave)="onMouseOut(sidebar)">
-        <nb-menu [items]="items"></nb-menu>
-      </nb-sidebar>
-
-
-
-
-      <nb-layout-column class="column"  style="padding: 8px;  " class="layout-column">
-        <router-outlet></router-outlet>
-      </nb-layout-column>
-    </nb-layout>
+  <nb-layout-column class="column"  style="padding: 8px;  " class="layout-column">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>
 

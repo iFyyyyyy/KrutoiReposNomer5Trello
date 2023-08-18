@@ -49,7 +49,7 @@ public class TaskController {
     }
 
     @PostMapping("/tasks/swap/{taskIndex}/{columnId}")
-    public TaskDTO changeColumnPosition(
+    public List<ColumnDTO> changeColumnPosition(
             @PathVariable("taskIndex") Long taskIndex,
             @PathVariable("columnId") Long columnId,
             @RequestBody Task task){
