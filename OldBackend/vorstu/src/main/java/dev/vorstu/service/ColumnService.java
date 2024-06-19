@@ -56,7 +56,7 @@ public class ColumnService {
     }
 
     public void deleteColumn(Long boardId) {
-        boardRepository.deleteById(boardId);
+        columnRepository.deleteById(boardId);
     }
 
     public List<ColumnDTO> changeColumnPosition(Column column, Long columnIndex, Long boardId){

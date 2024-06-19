@@ -17,6 +17,7 @@ export class DeleteColumnWrapperComponent {
   }
 
   ngOnInit(): void {
+    console.log("deleting Column");
     console.log(this.deletingColumn);
     this.dialogHeaderImpl();
   }

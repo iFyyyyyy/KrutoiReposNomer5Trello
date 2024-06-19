@@ -43,7 +43,7 @@ public class ColumnController {
 
     @DeleteMapping("/columns/column/{id}")
     public void deleteColumn(@PathVariable("id") Long columnId) {
-        columnService.deleteColumn(columnId);
+            columnService.deleteColumn(columnId);
     }
 
     @PostMapping("/columns/swap/{columnIndex}/{boardId}")

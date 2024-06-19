@@ -1,1 +1,32 @@
-<p>registration-page works!</p>
+<div class="dialog-wrapper">
+  <nb-card class="card-box">
+    <h1 id="title" class="title">Registration</h1>
+    <form #form="ngForm" aria-labelledby="title">
+      <div class="form-control-group">
+        <label class="label" for="input-name">User name:</label>
+        <input nbInput
+          fullWidth
+          [(ngModel)]="user.username"
+          name="userName"
+          placeholder="username">
+      </div>
+
+      <div class="form-control-group">
+        <label class="label" for="input-description">Password:</label>
+        <input nbInput
+          fullWidth
+          type="password"
+          [(ngModel)]="user.password"
+          name="password"
+          placeholder="Passsword">
+      </div>
+
+      <div class="form-control-group2">
+        <button nbButton fullWidth status="info" (click)="register()" > Register </button>
+        <label class="label" style="text-align: center;" for="input-name">Already Registered? Please </label>
+
+        <a class="label" routerLink="../login">Log In</a>
+      </div>
+    </form>
+  </nb-card>
+</div>

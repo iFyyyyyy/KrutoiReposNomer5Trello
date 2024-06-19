@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { User } from '../Entities/User';
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +42,15 @@ export class AuthorizationService {
   checkLogin(){
     return this.http.get<boolean>(`${this.loginUrl}/checkLogin`).pipe();
   }
+
+  register(username: string, password: string){
+
+    let user = new User();
+    user.username = username;
+    user.password = password;
+    return this.http.post<User>(`${this.loginUrl}/register`, user
+      )
+      .pipe();
+  }
 }
+

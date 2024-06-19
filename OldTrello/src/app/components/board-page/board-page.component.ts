@@ -126,13 +126,13 @@ export class BoardPageComponent {
   }
 
   deleteColumn(column: Column) {
-    const dialogUpdatingBoard = this.dialog.open(DeleteColumnWrapperComponent, {
+    const dialogDeletingBoard = this.dialog.open(DeleteColumnWrapperComponent, {
       closeOnBackdropClick: true,
       context: {deletingColumn: column},
     });
-    dialogUpdatingBoard.onClose.subscribe(result => {
+    dialogDeletingBoard.onClose.subscribe(result => {
       if(result == true) {
-        this.columnService.updateColumn(column).subscribe(k=> {
+        this.columnService.deleteColumn(column).subscribe(k=> {
           this.getColumnsByBoardId(this.board.id);
         });
       }

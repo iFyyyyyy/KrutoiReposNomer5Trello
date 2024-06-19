@@ -1,6 +1,7 @@
 package dev.vorstu.controllers;
 
 
+import dev.vorstu.entities.User;
 import dev.vorstu.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class AuthorizationController {
         log.info("Hello {} with role {}", token.getName(), token.getAuthorities());
         token.setDetails(userService.getUserDetails(token.getName()));
         return token;
+    }
+
+    @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
+    public boolean Register(User user) {
+
+        log.info("Register user");
+        return userService.Register(user);
     }
 
     @PostMapping(path = "/logout", consumes = "application/json", produces = "application/json")

@@ -27,6 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .antMatchers( "/api/**").permitAll()
+                .antMatchers( "/api/register/**").permitAll()
                 .antMatchers( "/api/login/**").permitAll()
                 .antMatchers( "/api/checkLogin/**").permitAll()
                 .anyRequest()
@@ -62,6 +63,8 @@ public class SecurityConfig {
                                 + "where username=?")
                 .authoritiesByUsernameQuery("select username, role from users where username=?");
     }
+
+
 
 
 
